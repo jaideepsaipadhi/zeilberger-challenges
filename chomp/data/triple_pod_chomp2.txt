@@ -1,0 +1,20 @@
+--- chomp2_10x42 ---
+BOX 10 x 42, states 15820024220
+BAR 1 x 1 : 0 winning moves
+BAR 6 x 13 : 2 winning moves
+BAR 7 x 29 : 2 winning moves
+BAR 7 x 30 : 2 winning moves
+BAR 8 x 10 : 2 winning moves
+BAR 8 x 22 : 2 winning moves
+BAR 8 x 23 : 2 winning moves
+BAR 9 x 10 : 2 winning moves
+BAR 9 x 26 : 2 winning moves
+BAR 10 x 8 : 2 winning moves
+BAR 10 x 9 : 2 winning moves
+BAR 10 x 14 : 2 winning moves
+BAR 10 x 29 : 2 winning moves
+BAR 10 x 33 : 2 winning moves
+BAR 10 x 35 : 2 winning moves
+BAR 10 x 42 : 3 winning moves
+P-positions in box: 107342200
+[exit 0]

@@ -1,4 +1,9 @@
-"""Certify that the machinery covers Conjecture 2b (odd-run H-model):
+"""NOTE: the Perron-Hessian cross-check below is very slow in this direct
+form (symbolic det of exp entries; hours). lemmaA_H_fast.py performs the
+identical check with entries series-truncated first and completes in seconds;
+its archived output confirms drift 0 and Hessian = s_H*M with s_H = 5/3.
+
+Certify that the machinery covers Conjecture 2b (odd-run H-model):
    tilted run law P(R=r) = w^{r-1}(1-w^2), r odd >= 1, at w = sqrt(2)-1;
    verify: drift 0, Sigma_H = scalar * M (=> angle pi/3 => exponent -4), corrector kappa = -E[R]/3."""
 import sympy as sp

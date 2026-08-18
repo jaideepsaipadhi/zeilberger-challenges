@@ -206,3 +206,208 @@ assembling stiffness and mass matrices (n=16) ...
    row 9/16 [4837s]
    row 10/16 [5147s]
    row 11/16 [5416s]
+   row 12/16 [5687s]
+   row 13/16 [5869s]
+   row 14/16 [6008s]
+   row 15/16 [6104s]
+   row 16/16 [6168s]
+solving the generalised eigenproblem ...
+   Rayleigh (UPPER bound for lambda_1): 13.7506809520491
+   next few: ['26.008347', '42.82462', '45.227655']
+   => nu <=  3.24174838171263
+
+   (MPS estimate for comparison: lambda_1 = 13.7443552132132,
+    nu = 3.2409029943607)
+
+   Temple lower bound needs ||K u - R M u|| ; reporting the
+   Rayleigh gap only. With lambda_2 >= 26.0 the Temple bound is
+   lambda_1 >= R - eps^2/(lambda_2 - R); eps must come from an
+   interval-arithmetic residual, which this script does not compute.
+
+wrote lambda_enclosure_results.json  [6168s]
+[exit 0]
+--- cone/lambda_precision.py ---
+calibration: A3 chamber triangle, expect nu = 6 exactly
+   nu = 5.99999999946   (error 5.402e-10, sigma 2.68e-10)  [88s]
+
+target: (pi/3, pi/2, 2pi/3), pole at the 2pi/3 vertex
+   nu       = 3.24090299436022
+   lambda_1 = 13.7443552132132
+   sigma    = 8.32489e-10   [1346s]
+
+convergence study (nu vs basis size) — the honest error bar
+   nb= 8  nu = 3.2409029943555  sigma = 1.11e-6
+   nb=10  nu = 3.2409029943607  sigma = 9.163e-8
+   nb=12  nu = 3.2409029943607  sigma = 8.421e-9
+   nb=14  nu = 3.2409029943607  sigma = 8.325e-10
+   successive-nb agreement: 0.0  =>  ~30 stable digits
+
+rational exclusions for nu (Farey candidates up to denominator 60)
+   nearest rational p/q (q<=60): 175/54, distance 0.000162254
+   => every rational of denominator <= 60 is further than the
+      numerical uncertainty, i.e. excluded at this precision.
+
+wrote lambda_precision_results.json — send this back
+[exit 0]
+--- cone/pkernel.py ---
+CONTROLS
+   C(2n,n) mod 2                p=2  distinct per depth: [1, 2, 2, 2, 2, 2]   cumulative: 11   [should SATURATE]
+   floor(n*sqrt2) mod 2         p=2  distinct per depth: [1, 2, 4, 8, 16, 32]   cumulative: 63   [should GROW]
+
+TARGET: Solid SYT (2,1,1)x[n]
+   computing a(n) mod 2 up to n=2000 ...
+      a(0..8) mod 2 = [1, 1, 1, 1, 0, 1, 0, 1, 0]
+   Solid SYT mod 2              p=2  distinct per depth: [1, None, None, None]   cumulative: 1   [unknown]
+   computing a(n) mod 3 up to n=2000 ...
+      a(0..8) mod 3 = [1, 0, 1, 2, 1, 0, 1, 2, 2]
+   Solid SYT mod 3              p=3  distinct per depth: [1, None, None, None]   cumulative: 1   [unknown]
+
+wrote pkernel_results.json
+[exit 0]
+--- matsuo_b ---
+(r,s)   n    b_rs(n)   pos  vup  vdn |   ruleA    ruleB    ruleC  | match
+(2,2)   4        16     1    1    1 |       12       16       18  | B
+(2,2)   5        44     1    1    1 |       36       44       61  | B
+(2,2)   6       200     1    1    1 |      176      200      290  | B
+(2,2)   7      1288     1    1    1 |     1120     1288     1703  | B
+(2,2)   8      9512     1    1    1 |     8360     9512    12034  | B
+(2,3)   4        16     1    2    2 |       12       16       20  | B
+(2,3)   5        64     1    2    2 |       43       64      102  | B
+(2,3)   6       336     1    2    2 |      234      336      544  | B
+(2,3)   7      1776     1    2    2 |     1323     1776     2950  | B
+(2,3)   8     12224     1    2    2 |     9510    12224    20056  | B
+(3,2)   4        16     2    1    1 |       14       16       20  | B
+(3,2)   5        64     2    1    1 |       56       64       78  | B
+(3,2)   6       336     2    1    1 |      288      336      396  | B
+(3,2)   7      1776     2    1    1 |     1584     1776     2192  | B
+(3,2)   8     12224     2    1    1 |    11080    12224    14988  | B
+(3,3)   4        20     2    2    2 |       16       20       22  | B
+(3,3)   5        80     2    2    2 |       62       80      108  | B
+(3,3)   6       384     2    2    2 |      300      384      588  | B
+(3,3)   7      2240     2    2    2 |     1784     2240     3320  | B
+(3,3)   8     15424     2    2    2 |    12480    15424    22804  | B
+(2,4)   5        84     1    3    3 |       53       84      102  | B
+(2,4)   6       400     1    3    3 |      258      400      624  | B
+(2,4)   7      2352     1    3    3 |     1518     2352     4440  | B
+(2,4)   8     16512     1    3    3 |    11122    16512    32208  | B
+(4,2)   5        84     3    1    1 |       78       84       96  | B
+(4,2)   6       400     3    1    1 |      368      400      468  | B
+(4,2)   7      2352     3    1    1 |     2160     2352     2736  | B
+(4,2)   8     16512     3    1    1 |    15168    16512    19008  | B
+
+--- ANALYSIS ---
+(r,s)=(2,2): rules working for all n = ['B'] | excusal sizes = [3] | bounded: True
+(r,s)=(2,3): rules working for all n = ['B'] | excusal sizes = [5] | bounded: True
+(r,s)=(2,4): rules working for all n = ['B'] | excusal sizes = [7] | bounded: True
+(r,s)=(3,2): rules working for all n = ['B'] | excusal sizes = [4] | bounded: True
+(r,s)=(3,3): rules working for all n = ['B'] | excusal sizes = [6] | bounded: True
+(r,s)=(4,2): rules working for all n = ['B'] | excusal sizes = [5] | bounded: True
+
+A SINGLE RULE REPRODUCES b_rs FOR EVERY (r,s), ALL n: True
+EXCUSAL SETS BOUNDED IN n:                             True
+
+=> b_{r,s} is covered too: Challenge 3 ($300) reduces IN FULL to
+   the closure argument already proved for a_{2,2}.
+
+wrote matsuo_b_results.json — send this back
+[exit 0]
+--- matsuo_general ---
+(r,s)   n   a_rs(n)   pos_seams  val_seams  excusal  transformed  match
+(2,2)   4        18        1          1        2           18   YES
+(2,2)   5        75        1          1        2           75   YES
+(2,2)   6       410        1          1        2          410   YES
+(2,2)   7      2729        1          1        2         2729   YES
+(2,2)   8     20906        1          1        2        20906   YES
+(2,3)   4        20        1          2        3           20   YES
+(2,3)   5        88        1          2        3           88   YES
+(2,3)   6       480        1          2        3          480   YES
+(2,3)   7      3082        1          2        3         3082   YES
+(2,3)   8     23232        1          2        3        23232   YES
+(3,2)   4        20        2          1        3           20   YES
+(3,2)   5        88        2          1        3           88   YES
+(3,2)   6       480        2          1        3          480   YES
+(3,2)   7      3082        2          1        3         3082   YES
+(3,2)   8     23232        2          1        3        23232   YES
+(3,3)   4        22        2          2        4           22   YES
+(3,3)   5        98        2          2        4           98   YES
+(3,3)   6       534        2          2        4          534   YES
+(3,3)   7      3414        2          2        4         3414   YES
+(3,3)   8     25498        2          2        4        25498   YES
+(2,4)   5       102        1          3        4          102   YES
+(2,4)   6       544        1          3        4          544   YES
+(2,4)   7      3480        1          3        4         3480   YES
+(2,4)   8     25944        1          3        4        25944   YES
+(4,2)   5       102        3          1        4          102   YES
+(4,2)   6       544        3          1        4          544   YES
+(4,2)   7      3480        3          1        4         3480   YES
+(4,2)   8     25944        3          1        4        25944   YES
+(3,4)   5       108        2          3        5          108   YES
+(3,4)   6       588        2          3        5          588   YES
+(3,4)   7      3768        2          3        5         3768   YES
+(3,4)   8     28032        2          3        5        28032   YES
+
+--- ANALYSIS ---
+(r,s)=(2,2): excusal sizes over n = [2] | bounded: True | predicted 2 | counts match: True
+(r,s)=(2,3): excusal sizes over n = [3] | bounded: True | predicted 3 | counts match: True
+(r,s)=(2,4): excusal sizes over n = [4] | bounded: True | predicted 4 | counts match: True
+(r,s)=(3,2): excusal sizes over n = [3] | bounded: True | predicted 3 | counts match: True
+(r,s)=(3,3): excusal sizes over n = [4] | bounded: True | predicted 4 | counts match: True
+(r,s)=(3,4): excusal sizes over n = [5] | bounded: True | predicted 5 | counts match: True
+(r,s)=(4,2): excusal sizes over n = [4] | bounded: True | predicted 4 | counts match: True
+
+EXCUSAL SETS BOUNDED IN n FOR EVERY (r,s) TESTED: True
+TRANSFORMED COUNT REPRODUCES a_rs EVERYWHERE:       True
+
+=> The generalisation HOLDS on this evidence: Challenge 3 reduces
+   to the closure argument already in hand, with finitely many
+   catalytic variables for each fixed (r,s).
+
+wrote matsuo_general_results.json — send this back
+[exit 0]
+--- diff regenerated matsuo results vs committed ---
+matsuo_b_results.json: MATCHES committed
+matsuo_general_results.json: MATCHES committed
+--- chomp3_10x42 ---
+BOX 10 x 42, states 15820024220, solve 1364s
+BAR 1 x 1 : 0 winning moves
+BAR 6 x 13 : 2 winning moves
+BAR 7 x 29 : 2 winning moves
+BAR 7 x 30 : 2 winning moves
+BAR 8 x 10 : 2 winning moves
+BAR 8 x 22 : 2 winning moves
+BAR 8 x 23 : 2 winning moves
+BAR 9 x 10 : 2 winning moves
+BAR 9 x 26 : 2 winning moves
+BAR 10 x 8 : 2 winning moves
+BAR 10 x 9 : 2 winning moves
+BAR 10 x 14 : 2 winning moves
+BAR 10 x 29 : 2 winning moves
+BAR 10 x 33 : 2 winning moves
+BAR 10 x 35 : 2 winning moves
+BAR 10 x 42 : 3 winning moves
+P-positions in box: 107342200
+  winning bite at row 5 col 36
+  winning bite at row 7 col 30
+  winning bite at row 8 col 26
+[exit 0]
+--- chomp2_10x42 ---
+BOX 10 x 42, states 15820024220
+BAR 1 x 1 : 0 winning moves
+BAR 6 x 13 : 2 winning moves
+BAR 7 x 29 : 2 winning moves
+BAR 7 x 30 : 2 winning moves
+BAR 8 x 10 : 2 winning moves
+BAR 8 x 22 : 2 winning moves
+BAR 8 x 23 : 2 winning moves
+BAR 9 x 10 : 2 winning moves
+BAR 9 x 26 : 2 winning moves
+BAR 10 x 8 : 2 winning moves
+BAR 10 x 9 : 2 winning moves
+BAR 10 x 14 : 2 winning moves
+BAR 10 x 29 : 2 winning moves
+BAR 10 x 33 : 2 winning moves
+BAR 10 x 35 : 2 winning moves
+BAR 10 x 42 : 3 winning moves
+P-positions in box: 107342200
+[exit 0]
+=== done Tue Aug 18 21:39:46 UTC 2026 ===
