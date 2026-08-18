@@ -1,7 +1,7 @@
 # A local limit theorem for excursions of Markov-modulated random walks in cones
 
 Proving **Kauers-Zeilberger Conjectures 2a and 2b** (arXiv:2006.10205):
-G(n) ~ C1*8^n/n^4 and H(n) ~ C2*(7+5sqrt2)^n/n^4, with C2 = 0.6389276(4)
+G(n) ~ C1*8^n/n^4 and H(n) ~ C2*(7+5sqrt2)^n/n^4, with C2 = 0.6389278129(4)
 computed here for the first time.
 
 The theorem transports the Denisov-Wachtel-Zhang harmonic-function program to

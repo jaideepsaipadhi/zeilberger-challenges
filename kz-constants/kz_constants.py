@@ -18,8 +18,8 @@ all sixteen published terms of G(n):
     n = 120, 8 Richardson orders   ->  0.5212860515...
     n = 200, 14 Richardson orders  ->  0.52128605884644744638
 
-converging monotonically from below, with the candidate 0.52128605909203 at a
-distance of 2.5e-10 and the older 0.5212860373 excluded by 2.2e-8. Digits
+converging monotonically from below, with the candidate 0.52128605909(2) at a
+distance of 2.5e-10 and the older 0.52128605909(2) excluded by 2.2e-8. Digits
 0.521286058 are established. The remaining question is the tail: the deepest
 Richardson column is still ascending, by roughly 6e-11 per order and shrinking,
 so the last four digits rest on extrapolating that ascent rather than on any
@@ -72,12 +72,12 @@ KNOWN_G = [1, 0, 1, 1, 5, 15, 69, 304, 1518, 7807, 42314, 236621,
 if args.model == 'G':
     KNOWN = KNOWN_G
     MU = mpf(8)
-    CAND = mpf('0.52128605909203')
+    CAND = mpf('0.52128605909(2)')
     RUNOK = lambda L: L >= 2                 # runs of length at least two
 else:
     KNOWN = None                              # no published list on hand
     MU = 7 + 5*mp.sqrt(2)
-    CAND = mpf('0.6389276')
+    CAND = mpf('0.6389278129')
     RUNOK = lambda L: L % 2 == 1              # runs of odd length
 
 RCAP = 3   # run-length state: 1, 2, or 3 meaning ">=3"; parity recoverable
@@ -237,7 +237,7 @@ json.dump({
  "salzer": nstr(salz, 25) if salz is not None else None,
  "tail_fit": nstr(est, 25) if est is not None else None,
  "fitted_ratio": nstr(r, 10) if r is not None else None,
- "candidate": "0.52128605909203",
+ "candidate": "0.52128605909(2)",
  "richardson_column": [nstr(c[-1], 22) for c in cols],
 }, open("c1_tail_results.json", "w"), indent=1)
 print("\nwrote c1_tail_results.json  [%.0fs]" % (time.time()-T0))

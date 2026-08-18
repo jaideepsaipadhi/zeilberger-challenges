@@ -1,0 +1,151 @@
+=== zeilberger-challenges pod validation Tue Aug 18 16:00:14 UTC 2026 ===
+--- kz_constants ---
+exact DP for G(n) to n = 300 ...
+   count(50): 39 digits  [2s]
+   count(100): 83 digits  [15s]
+   count(150): 127 digits  [50s]
+   count(200): 172 digits  [86s]
+   count(250): 216 digits  [101s]
+   count(300): 261 digits  [103s]
+validation against the published terms: ALL OK
+
+METHOD 1  Richardson, 20 orders
+   order 13 : 0.5212860590076236187041
+   order 14 : 0.5212860590250420478891
+   order 15 : 0.5212860590378930662716
+   order 16 : 0.521286059047590801306
+   order 17 : 0.521286059055053046536
+   order 18 : 0.5212860590608936152256
+   order 19 : 0.5212860590655338754298
+   order 20 : 0.5212860590692697894518
+
+METHOD 2  Salzer acceleration (independent assumptions)
+   order 11 : 0.5212860589583922095438
+   order 12 : 0.5212860589913179540035
+   order 13 : 0.5212860590141801850711
+   order 14 : 0.5212860590305599772624
+   order 15 : 0.5212860590426090058597
+   order 16 : 0.5212860590516741272529
+
+METHOD 3  geometric tail fit on the Richardson increments
+   fitted ratio r = 0.77402881  (from 6 increments)
+   last increment = 3.735914e-12
+   summed tail    = 1.2796787e-11
+   limit estimate = 0.5212860590820665761296
+
+--- comparison ---
+   Richardson   0.5212860590692697894518   |candidate - est| = 2.27602e-11
+   Salzer       0.5212860590516741272529   |candidate - est| = 4.03559e-11
+   tail fit     0.5212860590820665761296   |candidate - est| = 9.96342e-12
+   candidate    0.52128605909203
+
+   spread across methods = 3.03924e-11
+   agreed prefix: 0.5212860590
+   -> assert only these digits in print; the remainder are
+      supported by extrapolation, not established by it.
+
+wrote c1_tail_results.json  [104s]
+[exit 0]
+--- c1_recompute ---
+computing G(n) exactly to n = 120 ...
+   G(1) = 0   [0s]
+   G(2) = 1   [0s]
+   G(3) = 1   [0s]
+   G(4) = 5   [0s]
+   G(5) = 15   [0s]
+   G(6) = 69   [0s]
+   G(7) = 304   [0s]
+   G(8) = 1518   [0s]
+   G(9) = 4 digits   [0s]
+   G(10) = 5 digits   [0s]
+   G(20) = 13 digits   [0s]
+   G(30) = 21 digits   [0s]
+   G(40) = 30 digits   [0s]
+   G(50) = 39 digits   [0s]
+   G(60) = 47 digits   [1s]
+   G(70) = 56 digits   [1s]
+   G(80) = 65 digits   [1s]
+   G(90) = 74 digits   [1s]
+   G(100) = 83 digits   [1s]
+   G(110) = 91 digits   [1s]
+   G(120) = 100 digits   [1s]
+
+validation against published terms:
+   n= 0  computed 1            published 1             ok
+   n= 1  computed 0            published 1             MISMATCH
+   n= 2  computed 1            published 2             MISMATCH
+   n= 3  computed 1            published 6             MISMATCH
+   n= 4  computed 5            published 23            MISMATCH
+   n= 5  computed 15           published 103           MISMATCH
+   n= 6  computed 69           published 513           MISMATCH
+   n= 7  computed 304          published 2761          MISMATCH
+   n= 8  computed 1518         published 15767         MISMATCH
+   n= 9  computed 7807         published 94359         MISMATCH
+   n=10  computed 42314        published 586590        MISMATCH
+
+DP does not reproduce the published terms — aborting; nothing downstream would be meaningful.
+[exit 1]
+--- c1_tail ---
+exact DP for G(n) to n = 300 ...
+   G(50): 39 digits  [0s]
+   G(100): 83 digits  [4s]
+   G(150): 127 digits  [13s]
+   G(200): 172 digits  [24s]
+   G(250): 216 digits  [28s]
+   G(300): 261 digits  [28s]
+validation against the 17 published terms: ALL OK
+
+METHOD 1  Richardson, 20 orders
+   order 13 : 0.5212860590076236187041
+   order 14 : 0.5212860590250420478891
+   order 15 : 0.5212860590378930662716
+   order 16 : 0.521286059047590801306
+   order 17 : 0.521286059055053046536
+   order 18 : 0.5212860590608936152256
+   order 19 : 0.5212860590655338754298
+   order 20 : 0.5212860590692697894518
+
+METHOD 2  Salzer acceleration (independent assumptions)
+   order 11 : 0.5212860589583922095438
+   order 12 : 0.5212860589913179540035
+   order 13 : 0.5212860590141801850711
+   order 14 : 0.5212860590305599772624
+   order 15 : 0.5212860590426090058597
+   order 16 : 0.5212860590516741272529
+
+METHOD 3  geometric tail fit on the Richardson increments
+   fitted ratio r = 0.77402881  (from 6 increments)
+   last increment = 3.735914e-12
+   summed tail    = 1.2796787e-11
+   limit estimate = 0.5212860590820665761296
+
+--- comparison ---
+   Richardson   0.5212860590692697894518   |candidate - est| = 2.27602e-11
+   Salzer       0.5212860590516741272529   |candidate - est| = 4.03559e-11
+   tail fit     0.5212860590820665761296   |candidate - est| = 9.96342e-12
+   candidate    0.52128605909203
+
+   spread across methods = 3.03924e-11
+   agreed prefix: 0.5212860590
+   -> assert only these digits in print; the remainder are
+      supported by extrapolation, not established by it.
+
+wrote c1_tail_results.json  [28s]
+[exit 0]
+--- verif/h_dp.py ---
+n=1 brute=1 dp=1.0
+n=2 brute=2 dp=2.0
+n=3 brute=9 dp=9.0
+n=4 brute=46 dp=46.0
+VALIDATION: PASS
+last raw c(n): ['0.61403487', '0.61454885', '0.61504204']
+Richardson pass 1 tail: 0.6381918815  0.6382217695
+Richardson pass 2 tail: 0.6396559220  0.6396265061
+Richardson pass 3 tail: 0.6382155137  0.6382439591
+Richardson pass 4 tail: 0.6396072603  0.6395808887
+C2 estimate: 0.6395808887
+[exit 0]
+--- verif/lemmaA_H.py ---
+E[R] = sqrt(2) = sqrt(2)
+E[R^2] = 3
+Sigma_H = s_H * M with s_H = 5/3
