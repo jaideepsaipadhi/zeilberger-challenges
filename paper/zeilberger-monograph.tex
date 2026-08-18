@@ -556,9 +556,9 @@ Write $q(b,p)$ for that value of $q$ when it exists. Exact computation gives:
 $p$ & $b=2$ & $3$ & $4$ & $5$ & $6$ & $7$ & apparent law\\
 \midrule
 $1$ & $1$ & $2$ & $3$ & $4$ & $5$ & $6$ & $q=b-1$ (Lemma~\ref{lem:L})\\
-$2$ & $1$ & $2$ & $4$ & $5$ & $7$ & --- & integers not divisible by $3$\\
-$3$ & $1$ & $3$ & $5$ & $7$ & $9$ & $12$ & $q=2b-3$, \textbf{false at $b=7$}\\
-$4$ & $1$ & $4$ & $7$ & $10$ & $13$ & --- & $q=3b-5$\\
+$2$ & $1$ & $2$ & $4$ & $5$ & $7$ & $8$ & integers not divisible by $3$\\
+$3$ & $1$ & $3$ & $5$ & $7$ & $9$ & $\mathbf{12}$ & $q=2b-3$, \textbf{false at $b=7$}\\
+$4$ & $1$ & $4$ & $7$ & $10$ & $13$ & $\mathbf{14}$ & $q=3b-5$, \textbf{false at $b=7$}\\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -580,8 +580,12 @@ $N$-positions at the relevant parameters. They are not: $B(7,6,11)$ is a
 $P$-position, so from $(7^3,1^{11})$ the bite at $(3,7)$ wins, and
 $(7^3,1^{11})$ is an $N$-position. Direct computation confirms $q(7,3)=12$.
 
-The remaining rows were confirmed on five consecutive values each and are, on
-present evidence, coincidences. This is consistent with Zeilberger's conclusion
+The failure is not isolated. The row $p=4$ exhibits the same pattern: the law
+$q=3b-5$ holds for $b=2,\dots,6$ and predicts $q(7,4)=16$, whereas direct
+computation gives $14$. Two independent instances of five consecutive
+confirmations followed by failure at the sixth value seem to us to settle the
+status of these apparent laws; the remaining rows are, on present evidence,
+coincidences. This is consistent with Zeilberger's conclusion
 that three-row Chomp is not governed by a periodic structure \cite{Zchaos} and
 with the probabilistic renormalisation analysis of Friedman and Landsberg
 \cite{FL}. We record it as the clearest methodological lesson of the project:
@@ -1107,9 +1111,11 @@ coincides with the order measured independently by fitting an operator to
 $200$ terms of $e_X$.
 
 Consequently $C_m=A_mB_m$ has a rational bivariate generating function
-$H(x,t;z,w)=\sum_{m\ge1}C_m(t)x^{m}=P/Q$, with $Q=Q_1^{2}Q_2^{2}$ a perfect
-square, $\gcd(P,Q)=1$, and neither factor vanishing at $z=0$ or $w=0$. The
-target becomes the diagonal
+\[
+  H(x,t;z,w)=\sum_{m\ge1}C_m(t)\,x^{m}=P/Q,
+\]
+with $Q=Q_1^{2}Q_2^{2}$ a perfect square, $\gcd(P,Q)=1$, and neither factor
+vanishing at $z=0$ or $w=0$. The target becomes the diagonal
 \[
   e_X(m)=\langle k!\,j!\rangle\,[x^{m}t^{m}]\,H(x,t;z,w).
 \]
@@ -1266,8 +1272,10 @@ $T(n)=\sum_\tau\#\{w:x_{12}(\tau)=x_{21}(\tau)=0\}$.
 \end{lemma}
 
 \begin{lemma}[Prefix factorisation]\label{lem:pf}
-$T(n)=\sum_{a=0}^{n}k(3n-a;a,a)$ and
-$S(n)=\sum_{0\le c\le a}\Bal(a,c)k(3n-a-c;a,a-c)$.
+\[
+  T(n)=\sum_{a=0}^{n}k(3n-a;a,a),\qquad
+  S(n)=\sum_{0\le c\le a}\Bal(a,c)\,k(3n-a-c;a,a-c).
+\]
 \end{lemma}
 
 \begin{proof}
@@ -1400,9 +1408,14 @@ $Q_d$-block:
   =\Bigl[\tfrac{T}{2t}\tfrac{c-x+\bx/t-\bx^{2}}{\sqrt{\Delta_-(\bx)}}\Bigr]^{\le0}
    -\Bigl[\sqrt{\Delta_+(x)}\tfrac{\bx}{t}\Bigr]^{\le0},
 \]
-where $\bigl[\sqrt{\Delta_+(x)}\bx/t\bigr]^{\le0}=\bx/t-T^{2}/(2t)$ (the terms
-$j\le1$) and
-$[-x/\sqrt{\Delta_-(\bx)}]^{\le0}=-x(1/\sqrt{\Delta_-(\bx)}-1)$. Multiplying by
+where
+\[
+  \bigl[\sqrt{\Delta_+(x)}\,\bx/t\bigr]^{\le0}=\bx/t-T^{2}/(2t)
+  \quad\text{(the terms $j\le1$)},\qquad
+  \bigl[-x/\sqrt{\Delta_-(\bx)}\bigr]^{\le0}
+   =-x\bigl(1/\sqrt{\Delta_-(\bx)}-1\bigr).
+\]
+Multiplying by
 $\tfrac12\sqrt{\Delta_0}\sqrt{\Delta_-(\bx)}$ gives
 Proposition~\ref{prop:R}.
 
@@ -1544,8 +1557,9 @@ finding one as an open problem.
 
 \begin{remark}
 The closed form for diagonal-endpoint reverse-Kreweras walks complements
-Kreweras' classical axis formula and Bousquet-M\'elou's diagonal result for the
-forward model \cite[Thm.~2]{BM05}; we have not found it in the literature.
+Kreweras' classical axis formula and the diagonal result of
+Bousquet-M\'elou \cite[Thm.~2]{BM05} for the forward model; we have not found
+it in the literature.
 General endpoints provably admit no single hypergeometric closed form of
 comparable shape.
 \end{remark}
@@ -1634,9 +1648,11 @@ on the denominator a rational exponent could have. Such a bound would follow
 from height bounds on a hypothetical annihilating operator: the exponent is a
 root of the indicial polynomial, whose leading coefficient is controlled by the
 operator's coefficient heights, and the rational root theorem then limits the
-denominator. Kauers and Johansson have excluded all operators with
-$(\mathrm{order}+1)(\mathrm{degree}+1)\ge 2999$ failing to appear in $6000$
-terms, which bounds size but not height.
+denominator. A guessing computation on $6000$ terms, reported by Kauers and Johansson on
+the challenge page \cite{ZssytChallenge}, excludes every operator with
+$(\mathrm{order}+1)(\mathrm{degree}+1)<3000$; this bounds the \emph{size} of a
+hypothetical annihilating operator but not the \emph{heights} of its
+coefficients, and it is the heights that control the indicial polynomial.
 We regard closing this gap --- effective height bounds for $G$-operators
 annihilating a given sequence --- as the substantive open problem, and note
 that the same wall blocks Conjectures 1a and 1b of \cite{KZ}.
@@ -1658,8 +1674,11 @@ lengths \cite{KZ}. Conjectures 2a and 2b assert
 \begin{theorem}\label{thm:kz}
 Both conjectures hold, with $C_1,C_2>0$ given by explicit sums over the
 finitely many admissible boundary configurations. Numerically
-$C_1=0.52128605909(2)$ and $C_2=0.6389278129(4)$, both determined in
-\S\ref{sec:c1num}, the latter computed here for the first time.
+\[
+  C_1=0.52128605909(2),\qquad C_2=0.6389278129(4),
+\]
+both determined in \S\ref{sec:c1num}, the latter computed here for the first
+time.
 \end{theorem}
 
 Theorem~\ref{thm:kz} is a consequence of a local limit theorem which we believe
@@ -1720,8 +1739,11 @@ with the sup-bound $\sup_{z,\ell}\Pr_i(S_k=z,L_k=\ell,D_k=d)\le Ck^{-3/2}$.
 
 \begin{proof}
 Fourier inversion on the torus,
-$\Pr_i(S_k=z,L_k=\ell,D_k=d)=(2\pi)^{-3}\int_{\mathbb{T}^{3}}
-e^{-i(\theta\cdot z+s\ell)}(P(\theta,s)^{k})_{id}\,d\theta\,ds$. Split
+\[
+  \Pr_i(S_k=z,L_k=\ell,D_k=d)=(2\pi)^{-3}\int_{\mathbb{T}^{3}}
+  e^{-i(\theta\cdot z+s\ell)}\bigl(P(\theta,s)^{k}\bigr)_{id}\,d\theta\,ds .
+\]
+Split
 $\mathbb{T}^{3}$ into $\delta$-balls around the three unit-modulus characters
 $\chi_r=(-s_r,s_r,s_r)$, $s_r=2\pi r/3$, and the complement. On the complement
 the spectral radius is $\le1-\epsilon(\delta)$ by entry domination and
@@ -1968,11 +1990,11 @@ tandem, so $\widehat{\text{walk}}=\text{walk}\circ\mathrm{swap}$ and
 $\widehat V=V\circ\mathrm{swap}$; the direction chain is reversible with
 uniform stationary law, so all reversal Radon--Nikodym factors are $1$. The
 exact split-and-reverse identity
-\[
-  \Pr_{x_0,i}(\tau>2m,S_{2m}=y_0,D_{2m}=d)
-  =\sum_{w,c}\Pr_{x_0,i}(\tau>m,S_m=w,D_m=c)\,
-   \widehat\Pr_{y_0,d}(\widehat\tau>m,\widehat S_m=w,\widehat D_m=c)
-\]
+\begin{align*}
+  &\Pr_{x_0,i}(\tau>2m,\,S_{2m}=y_0,\,D_{2m}=d)\\
+  &\qquad=\sum_{w,c}\Pr_{x_0,i}(\tau>m,\,S_m=w,\,D_m=c)\,
+   \widehat\Pr_{y_0,d}(\widehat\tau>m,\,\widehat S_m=w,\,\widehat D_m=c)
+\end{align*}
 combines with the bulk-local theorem --- proved by splitting at
 $m-\lfloor\varepsilon m\rfloor$, using Lemma A on the final window, bounding
 near-boundary starts by $O(\eta/\varepsilon)$ with $\eta=\varepsilon^{2/3}$,
@@ -2057,8 +2079,10 @@ model --- at least two for $G$, odd for $H$. All arithmetic is exact.
 The program reproduces the published initial terms of both sequences. For
 $G$, all seventeen terms
 \[
-  0,\,1,\,1,\,5,\,15,\,69,\,304,\,1518,\,7807,\,42314,\,236621,\,1364570,\,
-  8062975,\,48680547,\,299388670,\,1871463427
+  \begin{array}{l}
+  0,\,1,\,1,\,5,\,15,\,69,\,304,\,1518,\,7807,\,42314,\,236621,\\[2pt]
+  1364570,\,8062975,\,48680547,\,299388670,\,1871463427
+  \end{array}
 \]
 (from $n=1$); for $H$, the twelve published terms
 \[
@@ -2425,15 +2449,16 @@ Proposition~\ref{prop:tracksunique}:
 \begin{array}{rrrrrrr}
 p\backslash b & 2 & 3 & 4 & 5 & 6 & 7\\\hline
 1 & 1 & 2 & 3 & 4 & 5 & 6\\
-2 & 1 & 2 & 4 & 5 & 7 & \text{---}\\
+2 & 1 & 2 & 4 & 5 & 7 & 8\\
 3 & 1 & 3 & 5 & 7 & 9 & \mathbf{12}\\
-4 & 1 & 4 & 7 & 10 & 13 & \text{---}\\
-5 & 1 & 5 & 7 & 13 & 15 & \text{---}\\
+4 & 1 & 4 & 7 & 10 & 13 & \mathbf{14}\\
+5 & 1 & 5 & 7 & 13 & 15 & 19\\
 6 & 1 & 5 & 10 & 9 & 16 & \text{---}
 \end{array}
 \]
-The boldface entry is the falsification of $q=2b-3$ discussed in
-Section~\ref{sec:chomptracks}; the apparent law predicts $11$.
+The boldface entries are the two falsifications discussed in
+Section~\ref{sec:chomptracks}: the law $q=2b-3$ predicts $q(7,3)=11$ and the
+law $q=3b-5$ predicts $q(7,4)=16$, against the computed $12$ and $14$.
 
 \subsection*{D.6 Two-value Chomp grids}
 
@@ -2489,24 +2514,35 @@ several pages to no purpose.
 
 \section{Repository index}\label{app:repo}
 
+All material accompanying this paper is consolidated in a single repository,
+\begin{center}
+\texttt{github.com/jaideepsaipadhi/zeilberger-challenges}
+\end{center}
+which supersedes the five separate repositories in which the work was
+originally released. Its layout follows the parts of this paper:
+
 \begin{center}
 \begin{tabular}{ll}
 \toprule
-Result & Repository\\
+Directory & Contents\\
 \midrule
-Second Computational Chomp Challenge & \texttt{chomp-three-winning-moves}\\
-Holonomicity of $a_{r,s}$, $b_{r,s}$ &
- \texttt{restricted-permutations-holonomicity}\\
-First Rigorous Solid SYT Challenge & \texttt{solid-syt-recurrence}\\
-Geode Challenge, $D=4,\dots,10$ & \texttt{5d-geode-challenge}\\
-Kauers--Zeilberger Conjectures 2a, 2b & \texttt{kz-excursion-llt}\\
+\texttt{paper/} & this paper, source and compiled\\
+\texttt{chomp/} & \S\ref{sec:chomp}: three solvers, track dumps, bite tables\\
+\texttt{restricted-permutations/} & \S\ref{sec:ch3}: note and four verification scripts\\
+\texttt{solid-syt/} & \S\ref{sec:syt}: paper, derivation trail, operator check\\
+\texttt{geode/} & \S\ref{sec:geode}: note, CRT driver, computed values\\
+\texttt{kz-constants/} & \S\ref{sec:kz}: paper, verification suite, constant determination\\
+\texttt{a22-partial/} & \S\ref{sec:a22}: the reduction and its obstruction\\
+\texttt{cone-exponent/} & \S\ref{sec:cone}: eigenvalue determination and bounds\\
 \bottomrule
 \end{tabular}
 \end{center}
 
-All repositories are at \texttt{github.com/jaideepsaipadhi}. Each contains the
-paper source, the verification scripts, and the data required to reproduce
-every stated claim.
+Each directory carries the complete contents of the corresponding original
+repository --- engines, logs, data and papers --- together with the
+verification scripts written for this paper. Every quantitative claim made
+here is reproducible from the code and data there, and each script states in
+its header what it checks and against what.
 
 \begin{thebibliography}{99}
 
@@ -2585,6 +2621,10 @@ permutations}, arXiv:2211.02550; ECA \textbf{3} (2023), S2A10.
 
 \bibitem{Wallner} M.~Wallner, \emph{On the critical exponents of generalized
 ballot sequences in three dimensions}, Aequationes Math. \textbf{96} (2022).
+
+\bibitem{ZssytChallenge} D.~Zeilberger, \emph{Solid standard Young tableaux
+challenges}, Personal Journal of S.~B.~Ekhad and D.~Zeilberger; exclusion
+bound reported there as computed by M.~Kauers and F.~Johansson.
 
 \bibitem{Zchaos} D.~Zeilberger, \emph{Chomp, recurrences and chaos},
 J. Difference Equ. Appl. \textbf{10} (2004), 1281--1293.
