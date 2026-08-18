@@ -1911,8 +1911,12 @@ $\E_{x,i}[f(X_m/\sqrt m);\tau>m]$ for bounded continuous $f$, using the
 Brownian meander profile of B.3.1 and dominated convergence via Lemma C2.
 
 Monte Carlo certification over $2$M and $4$M paths gives tail slope $-1.4895$
-against the predicted $-1.5$, wedge width $1.0472=\pi/3$ to four decimals, and
-the angular law $\sin3\varphi$ bin by bin.
+against the predicted $-1.5$. The empirical exit law concentrates on a wedge
+of width approaching $\pi/3$ with angular profile $\sin3\varphi$; the width
+estimate converges slowly from below as the path count grows (the smaller
+archived reproduction \texttt{mc\_exit.py} measures $1.027$ against
+$\pi/3=1.0472$), so we treat the Monte Carlo as corroborating the exponent
+and the geometry rather than certifying digits.
 
 \subsection{The transported arguments, itemised}\label{sec:replay}
 

@@ -11,7 +11,9 @@
    Consistency target: per-UNIT-STEP covariance = (per-run Hessian)/E[R] should equal (5/3)*M_unit? 
    Our Sigma=5M was per unit step n (3n unit steps total? n = ... G(n): 3n steps, runs of total length 3n).
    Sigma per unit time (unit = one lattice step of the tandem walk) = 5M with M=[[2/3,-1/3],[-1/3,2/3]].
-   Per run: multiply by E[R]=3: expect Hessian(log lam) = 15*M = [[10,-5],[-5,10]].
+   The Fourier matrix below yields the PER-STEP quadratic directly, so the
+   expected Hessian(log lam) block is 5*M = [[10/3,-5/3],[-5/3,10/3]]
+   (NOT 15*M: no extra factor E[R]=3 -- cross-checked against lemmaA_torus).
 """
 import sympy as sp
 t1,t2=sp.symbols('t1 t2', real=True)
@@ -50,6 +52,9 @@ print("order-2 c2 =",sp.simplify(s2[0]))
 c2v=sp.simplify(s2[0])
 quad=sp.expand(c2v - c1v**2/2)
 print("quadratic form in (u1,u2) of log-lam order 2:", sp.simplify(quad))
-# expect -1/2 * (u1,u2) SigRun (u1,u2)^T with SigRun = 15*[[2/3,-1/3],[-1/3,2/3]] = [[10,-5],[-5,10]]
-target=-sp.Rational(1,2)*(10*u1**2 -10*u1*u2 + 10*u2**2)
-print("matches SigRun=15M:", sp.simplify(quad-target)==0)
+# expect -1/2 * (u1,u2) Sigma (u1,u2)^T with the PER-STEP position block
+# Sigma = 5*M = 5*[[2/3,-1/3],[-1/3,2/3]] = [[10/3,-5/3],[-5/3,10/3]]
+# (the old target used 15*M = "per run, x E[R]=3", but the quadratic computed
+#  above is per unit step; cross-checked against lemmaA_torus's Sigma_3 block)
+target=-sp.Rational(1,2)*(sp.Rational(10,3)*u1**2 - sp.Rational(10,3)*u1*u2 + sp.Rational(10,3)*u2**2)
+print("matches Sigma=5M (per-step position block):", sp.simplify(quad-target)==0)
