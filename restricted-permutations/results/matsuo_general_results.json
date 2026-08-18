@@ -1,0 +1,470 @@
+{
+ "rows": [
+  {
+   "r": 2,
+   "s": 2,
+   "n": 4,
+   "a_rs": 18,
+   "pos_seams": 1,
+   "val_seams": 1,
+   "excusal_size": 2,
+   "transformed_count": 18,
+   "match": true,
+   "predicted_excusal": 2
+  },
+  {
+   "r": 2,
+   "s": 2,
+   "n": 5,
+   "a_rs": 75,
+   "pos_seams": 1,
+   "val_seams": 1,
+   "excusal_size": 2,
+   "transformed_count": 75,
+   "match": true,
+   "predicted_excusal": 2
+  },
+  {
+   "r": 2,
+   "s": 2,
+   "n": 6,
+   "a_rs": 410,
+   "pos_seams": 1,
+   "val_seams": 1,
+   "excusal_size": 2,
+   "transformed_count": 410,
+   "match": true,
+   "predicted_excusal": 2
+  },
+  {
+   "r": 2,
+   "s": 2,
+   "n": 7,
+   "a_rs": 2729,
+   "pos_seams": 1,
+   "val_seams": 1,
+   "excusal_size": 2,
+   "transformed_count": 2729,
+   "match": true,
+   "predicted_excusal": 2
+  },
+  {
+   "r": 2,
+   "s": 2,
+   "n": 8,
+   "a_rs": 20906,
+   "pos_seams": 1,
+   "val_seams": 1,
+   "excusal_size": 2,
+   "transformed_count": 20906,
+   "match": true,
+   "predicted_excusal": 2
+  },
+  {
+   "r": 2,
+   "s": 3,
+   "n": 4,
+   "a_rs": 20,
+   "pos_seams": 1,
+   "val_seams": 2,
+   "excusal_size": 3,
+   "transformed_count": 20,
+   "match": true,
+   "predicted_excusal": 3
+  },
+  {
+   "r": 2,
+   "s": 3,
+   "n": 5,
+   "a_rs": 88,
+   "pos_seams": 1,
+   "val_seams": 2,
+   "excusal_size": 3,
+   "transformed_count": 88,
+   "match": true,
+   "predicted_excusal": 3
+  },
+  {
+   "r": 2,
+   "s": 3,
+   "n": 6,
+   "a_rs": 480,
+   "pos_seams": 1,
+   "val_seams": 2,
+   "excusal_size": 3,
+   "transformed_count": 480,
+   "match": true,
+   "predicted_excusal": 3
+  },
+  {
+   "r": 2,
+   "s": 3,
+   "n": 7,
+   "a_rs": 3082,
+   "pos_seams": 1,
+   "val_seams": 2,
+   "excusal_size": 3,
+   "transformed_count": 3082,
+   "match": true,
+   "predicted_excusal": 3
+  },
+  {
+   "r": 2,
+   "s": 3,
+   "n": 8,
+   "a_rs": 23232,
+   "pos_seams": 1,
+   "val_seams": 2,
+   "excusal_size": 3,
+   "transformed_count": 23232,
+   "match": true,
+   "predicted_excusal": 3
+  },
+  {
+   "r": 3,
+   "s": 2,
+   "n": 4,
+   "a_rs": 20,
+   "pos_seams": 2,
+   "val_seams": 1,
+   "excusal_size": 3,
+   "transformed_count": 20,
+   "match": true,
+   "predicted_excusal": 3
+  },
+  {
+   "r": 3,
+   "s": 2,
+   "n": 5,
+   "a_rs": 88,
+   "pos_seams": 2,
+   "val_seams": 1,
+   "excusal_size": 3,
+   "transformed_count": 88,
+   "match": true,
+   "predicted_excusal": 3
+  },
+  {
+   "r": 3,
+   "s": 2,
+   "n": 6,
+   "a_rs": 480,
+   "pos_seams": 2,
+   "val_seams": 1,
+   "excusal_size": 3,
+   "transformed_count": 480,
+   "match": true,
+   "predicted_excusal": 3
+  },
+  {
+   "r": 3,
+   "s": 2,
+   "n": 7,
+   "a_rs": 3082,
+   "pos_seams": 2,
+   "val_seams": 1,
+   "excusal_size": 3,
+   "transformed_count": 3082,
+   "match": true,
+   "predicted_excusal": 3
+  },
+  {
+   "r": 3,
+   "s": 2,
+   "n": 8,
+   "a_rs": 23232,
+   "pos_seams": 2,
+   "val_seams": 1,
+   "excusal_size": 3,
+   "transformed_count": 23232,
+   "match": true,
+   "predicted_excusal": 3
+  },
+  {
+   "r": 3,
+   "s": 3,
+   "n": 4,
+   "a_rs": 22,
+   "pos_seams": 2,
+   "val_seams": 2,
+   "excusal_size": 4,
+   "transformed_count": 22,
+   "match": true,
+   "predicted_excusal": 4
+  },
+  {
+   "r": 3,
+   "s": 3,
+   "n": 5,
+   "a_rs": 98,
+   "pos_seams": 2,
+   "val_seams": 2,
+   "excusal_size": 4,
+   "transformed_count": 98,
+   "match": true,
+   "predicted_excusal": 4
+  },
+  {
+   "r": 3,
+   "s": 3,
+   "n": 6,
+   "a_rs": 534,
+   "pos_seams": 2,
+   "val_seams": 2,
+   "excusal_size": 4,
+   "transformed_count": 534,
+   "match": true,
+   "predicted_excusal": 4
+  },
+  {
+   "r": 3,
+   "s": 3,
+   "n": 7,
+   "a_rs": 3414,
+   "pos_seams": 2,
+   "val_seams": 2,
+   "excusal_size": 4,
+   "transformed_count": 3414,
+   "match": true,
+   "predicted_excusal": 4
+  },
+  {
+   "r": 3,
+   "s": 3,
+   "n": 8,
+   "a_rs": 25498,
+   "pos_seams": 2,
+   "val_seams": 2,
+   "excusal_size": 4,
+   "transformed_count": 25498,
+   "match": true,
+   "predicted_excusal": 4
+  },
+  {
+   "r": 2,
+   "s": 4,
+   "n": 5,
+   "a_rs": 102,
+   "pos_seams": 1,
+   "val_seams": 3,
+   "excusal_size": 4,
+   "transformed_count": 102,
+   "match": true,
+   "predicted_excusal": 4
+  },
+  {
+   "r": 2,
+   "s": 4,
+   "n": 6,
+   "a_rs": 544,
+   "pos_seams": 1,
+   "val_seams": 3,
+   "excusal_size": 4,
+   "transformed_count": 544,
+   "match": true,
+   "predicted_excusal": 4
+  },
+  {
+   "r": 2,
+   "s": 4,
+   "n": 7,
+   "a_rs": 3480,
+   "pos_seams": 1,
+   "val_seams": 3,
+   "excusal_size": 4,
+   "transformed_count": 3480,
+   "match": true,
+   "predicted_excusal": 4
+  },
+  {
+   "r": 2,
+   "s": 4,
+   "n": 8,
+   "a_rs": 25944,
+   "pos_seams": 1,
+   "val_seams": 3,
+   "excusal_size": 4,
+   "transformed_count": 25944,
+   "match": true,
+   "predicted_excusal": 4
+  },
+  {
+   "r": 4,
+   "s": 2,
+   "n": 5,
+   "a_rs": 102,
+   "pos_seams": 3,
+   "val_seams": 1,
+   "excusal_size": 4,
+   "transformed_count": 102,
+   "match": true,
+   "predicted_excusal": 4
+  },
+  {
+   "r": 4,
+   "s": 2,
+   "n": 6,
+   "a_rs": 544,
+   "pos_seams": 3,
+   "val_seams": 1,
+   "excusal_size": 4,
+   "transformed_count": 544,
+   "match": true,
+   "predicted_excusal": 4
+  },
+  {
+   "r": 4,
+   "s": 2,
+   "n": 7,
+   "a_rs": 3480,
+   "pos_seams": 3,
+   "val_seams": 1,
+   "excusal_size": 4,
+   "transformed_count": 3480,
+   "match": true,
+   "predicted_excusal": 4
+  },
+  {
+   "r": 4,
+   "s": 2,
+   "n": 8,
+   "a_rs": 25944,
+   "pos_seams": 3,
+   "val_seams": 1,
+   "excusal_size": 4,
+   "transformed_count": 25944,
+   "match": true,
+   "predicted_excusal": 4
+  },
+  {
+   "r": 3,
+   "s": 4,
+   "n": 5,
+   "a_rs": 108,
+   "pos_seams": 2,
+   "val_seams": 3,
+   "excusal_size": 5,
+   "transformed_count": 108,
+   "match": true,
+   "predicted_excusal": 5
+  },
+  {
+   "r": 3,
+   "s": 4,
+   "n": 6,
+   "a_rs": 588,
+   "pos_seams": 2,
+   "val_seams": 3,
+   "excusal_size": 5,
+   "transformed_count": 588,
+   "match": true,
+   "predicted_excusal": 5
+  },
+  {
+   "r": 3,
+   "s": 4,
+   "n": 7,
+   "a_rs": 3768,
+   "pos_seams": 2,
+   "val_seams": 3,
+   "excusal_size": 5,
+   "transformed_count": 3768,
+   "match": true,
+   "predicted_excusal": 5
+  },
+  {
+   "r": 3,
+   "s": 4,
+   "n": 8,
+   "a_rs": 28032,
+   "pos_seams": 2,
+   "val_seams": 3,
+   "excusal_size": 5,
+   "transformed_count": 28032,
+   "match": true,
+   "predicted_excusal": 5
+  }
+ ],
+ "summary": [
+  {
+   "r": 2,
+   "s": 2,
+   "excusal_sizes_over_n": [
+    2
+   ],
+   "bounded_in_n": true,
+   "predicted": 2,
+   "matches_prediction": true,
+   "bijection_reproduces_a_rs": true
+  },
+  {
+   "r": 2,
+   "s": 3,
+   "excusal_sizes_over_n": [
+    3
+   ],
+   "bounded_in_n": true,
+   "predicted": 3,
+   "matches_prediction": true,
+   "bijection_reproduces_a_rs": true
+  },
+  {
+   "r": 2,
+   "s": 4,
+   "excusal_sizes_over_n": [
+    4
+   ],
+   "bounded_in_n": true,
+   "predicted": 4,
+   "matches_prediction": true,
+   "bijection_reproduces_a_rs": true
+  },
+  {
+   "r": 3,
+   "s": 2,
+   "excusal_sizes_over_n": [
+    3
+   ],
+   "bounded_in_n": true,
+   "predicted": 3,
+   "matches_prediction": true,
+   "bijection_reproduces_a_rs": true
+  },
+  {
+   "r": 3,
+   "s": 3,
+   "excusal_sizes_over_n": [
+    4
+   ],
+   "bounded_in_n": true,
+   "predicted": 4,
+   "matches_prediction": true,
+   "bijection_reproduces_a_rs": true
+  },
+  {
+   "r": 3,
+   "s": 4,
+   "excusal_sizes_over_n": [
+    5
+   ],
+   "bounded_in_n": true,
+   "predicted": 5,
+   "matches_prediction": true,
+   "bijection_reproduces_a_rs": true
+  },
+  {
+   "r": 4,
+   "s": 2,
+   "excusal_sizes_over_n": [
+    4
+   ],
+   "bounded_in_n": true,
+   "predicted": 4,
+   "matches_prediction": true,
+   "bijection_reproduces_a_rs": true
+  }
+ ],
+ "all_bounded": true,
+ "all_match": true,
+ "caveat": "Small n only (brute force is n! ). Bounded here means bounded over the n tested; a proof needs the seam count argued in general, which is elementary if the pattern holds."
+}

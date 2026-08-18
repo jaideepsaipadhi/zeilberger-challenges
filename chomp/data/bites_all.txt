@@ -1,0 +1,77 @@
+=== 6 x 13 ===
+BAR 6 x 13 : 2 winning moves
+  winning bite at row 4 col 12
+  winning bite at row 5 col 9
+=== 6 x 93 ===
+BAR 6 x 93 : 2 winning moves
+  winning bite at row 2 col 52
+  winning bite at row 3 col 39
+=== 7 x 29 ===
+BAR 7 x 29 : 2 winning moves
+  winning bite at row 6 col 25
+  winning bite at row 7 col 20
+=== 7 x 30 ===
+BAR 7 x 30 : 2 winning moves
+  winning bite at row 4 col 21
+  winning bite at row 5 col 20
+=== 7 x 57 ===
+BAR 7 x 57 : 2 winning moves
+  winning bite at row 3 col 42
+  winning bite at row 4 col 26
+=== 8 x 10 ===
+BAR 8 x 10 : 2 winning moves
+  winning bite at row 4 col 9
+  winning bite at row 5 col 6
+=== 8 x 22 ===
+BAR 8 x 22 : 2 winning moves
+  winning bite at row 2 col 9
+  winning bite at row 3 col 7
+=== 8 x 23 ===
+BAR 8 x 23 : 2 winning moves
+  winning bite at row 7 col 18
+  winning bite at row 8 col 16
+=== 9 x 10 ===
+BAR 9 x 10 : 2 winning moves
+  winning bite at row 7 col 8
+  winning bite at row 9 col 5
+=== 9 x 26 ===
+BAR 9 x 26 : 2 winning moves
+  winning bite at row 2 col 11
+  winning bite at row 4 col 10
+=== 10 x 14 ===
+BAR 10 x 14 : 2 winning moves
+  winning bite at row 5 col 13
+  winning bite at row 7 col 9
+=== 10 x 29 ===
+BAR 10 x 29 : 2 winning moves
+  winning bite at row 6 col 16
+  winning bite at row 8 col 12
+=== 10 x 33 ===
+BAR 10 x 33 : 2 winning moves
+  winning bite at row 7 col 23
+  winning bite at row 9 col 18
+=== 10 x 35 ===
+BAR 10 x 35 : 2 winning moves
+  winning bite at row 7 col 24
+  winning bite at row 8 col 21
+=== 11 x 18 ===
+BAR 11 x 18 : 2 winning moves
+  winning bite at row 9 col 17
+  winning bite at row 10 col 16
+=== 12 x 13 ===
+BAR 12 x 13 : 2 winning moves
+  winning bite at row 10 col 11
+  winning bite at row 11 col 9
+=== 13 x 16 ===
+BAR 13 x 16 : 2 winning moves
+  winning bite at row 5 col 6
+  winning bite at row 11 col 5
+=== 14 x 16 ===
+BAR 14 x 16 : 2 winning moves
+  winning bite at row 3 col 12
+  winning bite at row 9 col 10
+=== 10 x 42 ===
+BAR 10 x 42 : 3 winning moves
+  winning bite at row 5 col 36
+  winning bite at row 7 col 30
+  winning bite at row 8 col 26
