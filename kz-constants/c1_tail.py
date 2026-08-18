@@ -8,8 +8,8 @@ all sixteen published terms of G(n):
     n = 120, 8 Richardson orders   ->  0.5212860515...
     n = 200, 14 Richardson orders  ->  0.52128605884644744638
 
-converging monotonically from below, with the candidate 0.52128605909(2) at a
-distance of 2.5e-10 and the older 0.52128605909(2) excluded by 2.2e-8. Digits
+converging monotonically from below, with the candidate 0.52128605909203 at a
+distance of 2.5e-10 and the older 0.5212860373 excluded by 2.2e-8. Digits
 0.521286058 are established. The remaining question is the tail: the deepest
 Richardson column is still ascending, by roughly 6e-11 per order and shrinking,
 so the last four digits rest on extrapolating that ascent rather than on any
@@ -58,7 +58,7 @@ T0 = time.time()
 
 KNOWN = [1, 0, 1, 1, 5, 15, 69, 304, 1518, 7807, 42314, 236621,
          1364570, 8062975, 48680547, 299388670, 1871463427]
-CAND = mpf('0.52128605909(2)')
+CAND = mpf('0.52128605909203')
 
 def G_series(nmax):
     out = [0]*(nmax+1); out[0] = 1

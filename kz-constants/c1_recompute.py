@@ -4,11 +4,11 @@ c1_recompute.py — settle the value of C_1 by computation.
 
 THE QUESTION. Two values are in circulation:
 
-    (A)  C_1 = 0.52128605909(2)...        derived 10 Aug: exact DP for G(n) to
+    (A)  C_1 = 0.5212860373...        derived 10 Aug: exact DP for G(n) to
                                       n = 110, Richardson extrapolation.
                                       Recorded in the session transcript
                                       together with its method.
-    (B)  C_1 = 0.52128605909(2)       present in later notes with NO recorded
+    (B)  C_1 = 0.52128605909203      present in later notes with NO recorded
                                       derivation, and used as the basis of a
                                       claim that the published Kauers-Zeilberger
                                       value is wrong in its eighth digit.
@@ -60,7 +60,8 @@ mp.dps = args.dps
 T0 = time.time()
 
 # published initial terms of G(n) (runs >= 2), from Kauers-Zeilberger
-KNOWN = [1, 1, 2, 6, 23, 103, 513, 2761, 15767, 94359, 586590]
+KNOWN = [1, 0, 1, 1, 5, 15, 69, 304, 1518, 7807, 42314, 236621,
+         1364570, 8062975, 48680547, 299388670, 1871463427]
 
 def G_series(nmax):
     """Exact G(n) for n = 0..nmax by layered DP.
@@ -153,16 +154,16 @@ stab = None
 if len(cols[-1]) >= 2:
     stab = abs(cols[-1][-1] - cols[-1][-2])
 
-CAND_A = mpf('0.52128605909(2)')
-CAND_B = mpf('0.52128605909(2)')
+CAND_A = mpf('0.5212860373')
+CAND_B = mpf('0.52128605909203')
 
 print("\n--- comparison ---")
 print("   extrapolated C_1        =", nstr(best, 20))
 if stab is not None:
     print("   stability (last diff)   =", nstr(stab, 6))
-print("   candidate A 0.52128605909(2)        distance =",
+print("   candidate A 0.5212860373              distance =",
       nstr(abs(best-CAND_A), 6))
-print("   candidate B 0.52128605909(2)    distance =",
+print("   candidate B 0.52128605909203    distance =",
       nstr(abs(best-CAND_B), 6))
 
 verdict = ("A" if abs(best-CAND_A) < abs(best-CAND_B) else "B")
@@ -176,8 +177,8 @@ json.dump({
   "validation_passed": ok,
   "extrapolated": nstr(best, 25),
   "stability": nstr(stab, 8) if stab is not None else None,
-  "candidate_A": "0.52128605909(2)", "dist_A": nstr(abs(best-CAND_A), 8),
-  "candidate_B": "0.52128605909(2)", "dist_B": nstr(abs(best-CAND_B), 8),
+  "candidate_A": "0.5212860373", "dist_A": nstr(abs(best-CAND_A), 8),
+  "candidate_B": "0.52128605909203", "dist_B": nstr(abs(best-CAND_B), 8),
   "verdict": verdict,
   "orders": [nstr(c[-1], 20) for c in cols if c],
 }, open("c1_recompute_results.json", "w"), indent=1)
