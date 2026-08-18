@@ -1,0 +1,125 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}\newtheorem{lemma}{Lemma}
+\newcommand{\ff}[2]{(#1)_{#2}}
+\title{A One-Dimensional Integral Representation for Diagonal Geode Coefficients,\\
+with the values of $G(1000,\dots,1000)$ in dimensions $5$ through $10$}
+\author{Jaideep Sai Padhi\\ \small Purdue University \quad \texttt{jpadhi@purdue.edu}}
+\date{August 2026}
+\begin{document}\maketitle
+\begin{abstract}
+Amdeberhan, Kauers and Zeilberger offered a donation to the OEIS for the computation of the
+five-dimensional Geode coefficient $G[1000,1000,1000,1000,1000]$; Rubine, who computed the
+four-dimensional value in $35.9$ hours, estimated the five-dimensional case at roughly a
+thousand times that cost and wrote that ``new innovations are required.'' We derive a
+representation of the diagonal Geode coefficient $G[M^{(D)}]$ as a single coefficient
+extraction against a one-dimensional integral, yielding an algorithm using $O(M^2)$ arithmetic
+operations and $O(M)$ memory per prime in a multi-modular scheme. The five-dimensional value
+(8367 digits) then takes minutes on commodity hardware. As validation, the same program
+reproduces Rubine's published $G[1000^{(4)}]$ exactly in under three minutes, and we verify
+every reconstructed value against fresh primes not used in the reconstruction. We report
+$G[1000^{(D)}]$ for $D=5,6,\dots,10$, all computed for the first time.
+\end{abstract}
+
+\section{The challenge}
+Let $S=1+\sum_{k\ge 2}t_kS^k$ be the hyper-Catalan generating series of Wildberger--Rubine,
+restricted to $D$ variables $t_2,\dots,t_{D+1}$, and let $G$ be the Geode,
+$S-1=(t_2+\cdots+t_{D+1})G$. Write $G[M^{(D)}]$ for the coefficient of
+$(t_2\cdots t_{D+1})^M$ in $G$. The hyper-Catalan coefficients have the classical closed form
+(Erd\'elyi--Etherington)
+\[ C[\mathbf m]=\frac{K!}{(1+K-N)!\,\prod_k m_k!},\qquad K=\sum_k k\,m_k,\ \ N=\sum_k m_k. \]
+Expanding $1/(t_2+\cdots+t_{D+1})$ geometrically in $t_2$ gives, with $d=D-1$,
+\begin{equation}\label{eq:alt}
+G[M^{(D)}]=\sum_{\alpha\in\{0,\dots,M\}^{d}}(-1)^{|\alpha|}\binom{|\alpha|}{\alpha}\,
+C\!\left[M{+}1{+}|\alpha|,\,M{-}\alpha_1,\dots,M{-}\alpha_d\right],
+\end{equation}
+a sum with $(M{+}1)^d$ terms ($10^{12}$ at $M=1000$, $D=5$): the wall described by Rubine.
+
+\section{The collapse}
+Three elementary structural facts dismantle \eqref{eq:alt}. Write
+$W=\sum_{j=1}^{d}j\,\alpha_j$, $\ b_K=M\sum_{k=2}^{D+1}k+2$, $\ b_N=M\sum_{k=1}^{D}k+1$.
+\begin{lemma}\label{lem:const}
+For every $\alpha$ in \eqref{eq:alt}, the vector $\mathbf m'$ appearing in $C[\cdot]$ satisfies
+$N'=\sum_k m'_k=DM+1$ (independent of $\alpha$) and $K'=\sum_k k\,m'_k=b_K-W$.
+\end{lemma}
+\begin{proof}
+$N'=(M{+}1{+}|\alpha|)+\sum_j(M-\alpha_j)=DM+1$. For $K'$, the shift of $m_2$ contributes
+$2|\alpha|$ while the decrements remove $\sum_j (j{+}2)\alpha_j=W+2|\alpha|$.
+\end{proof}
+Consequently $K'!/(1+K'-N)!=\ff{K'}{DM}=(DM)!\binom{K'}{DM}$, a polynomial in $W$, and
+$\binom{K'}{DM}=[z^{DM}](1+z)^{b_K-W}$.
+\begin{lemma}\label{lem:prod}
+With $T[i,W]=\sum_{|\alpha|=i,\ W(\alpha)=W}\prod_j\binom{M}{\alpha_j}$ one has
+$\sum_{i,W}T[i,W]\,u^i y^W=\prod_{j=1}^{d}(1+u\,y^{j})^{M}$.
+\end{lemma}
+\begin{proof} The binomial theorem in each factor. \end{proof}
+\begin{lemma}\label{lem:beta}
+$\displaystyle \frac{i!}{(M{+}1{+}i)!}=\frac{1}{M!}\int_0^1 x^{i}(1-x)^{M}\,dx$.
+\end{lemma}
+\begin{proof} The Beta integral. \end{proof}
+Substituting Lemma~\ref{lem:const} into \eqref{eq:alt}, using
+$1/(\alpha_j!(M-\alpha_j)!)=\binom{M}{\alpha_j}/M!$, then evaluating the $\alpha$-sum by
+Lemma~\ref{lem:prod} at $u=-x$ via Lemma~\ref{lem:beta}, gives:
+\begin{theorem}\label{thm:main}
+With $d=D-1$, $s_d=d(d+1)/2$, $E=\bigl(\sum_{k=2}^{D+1}k-s_d\bigr)M+2$ and
+$h(x,z)=(1-x)\prod_{k=1}^{d}\bigl((1+z)^k-x\bigr)$,
+\[ G[M^{(D)}]\;=\;\frac{(DM)!}{(M!)^{D}}\;[z^{DM}]\;(1+z)^{E}\int_0^1 h(x,z)^{M}\,dx. \]
+\end{theorem}
+
+\section{Algorithm}
+Modulo a prime $p$, the integral of the polynomial $h(\cdot,z)^M$ (of $x$-degree $DM$) is
+evaluated exactly by interpolatory quadrature at $DM+1$ nodes $x_j$ (avoiding $x=1$); at
+equispaced nodes the Lagrange denominators are $(-1)^{n-1-j}j!(n{-}1{-}j)!$. For each node,
+$g_j(z)=h(x_j,z)$ has degree $s_d$, and the coefficients of $g_j^M$ satisfy the order-$s_d$
+recurrence obtained from $g\,P'=M\,g'P$, costing $O(s_d)$ operations per coefficient; they are
+contracted on the fly against $\binom{E}{DM-r}$ and the quadrature weights. The cost is
+$O(D^2 s_d M^2)$ arithmetic operations and $O(DM)$ memory per prime; $\approx 10^3$--$1.6\times10^3$
+$30$-bit primes reconstruct the values below by the CRT. A proven bound
+$|G[M^{(D)}]|\le \frac{b_K!}{(1+b_N)!\,(M!)^d}\sum_i \frac{i!\binom{dM}{i}}{(M{+}1{+}i)!}$
+(from $\sum_W T[i,W]=\binom{dM}{i}$ and the monotonicity of $W\mapsto\ff{b_K-W}{DM}$) sizes the
+prime count; we found empirically that the na\"ive leading-term estimate is \emph{not} an upper
+bound and must not be used for this purpose.
+
+\section{Validation}
+(i) a five-stage machine verification (closed form vs.\ the defining series; \eqref{eq:alt} vs.\
+exact polynomial division and vs.\ an independent recursion; each lemma separately; Theorem~\ref{thm:main}
+vs.\ exact values; production code vs.\ exact values for $D=4,\dots,10$ at small $M$);
+(ii) exact reproduction of Rubine's published $G[1000^{(4)}]$ (6036 digits; our wall time 168\,s
+on a 13.6-core allocation against his reported 35.9\,h), after matching his printed
+$H(1),\dots,H(6)$ exactly; (iii) every reconstructed value verified against fresh primes not
+used in its reconstruction. Code, residues and full decimal values:
+\url{https://github.com/jaideepsaipadhi/5d-geode-challenge}.
+
+\section{Results}
+\begin{center}\begin{tabular}{c c l l}
+$D$ & digits & first 12 digits & last 12 digits\\\hline
+4 & 6036 & 140604899259 & 407713629184000\,(Rubine \checkmark)\\
+5 & 8367 & 365748434524 & 213507850240000\\
+6 & 10866 & 354720604493 & 172747182080000\\
+7 & 13506 & 203334720825 & 405302272000000\\
+8 & 16267 & 256748206726 & 425216000000\\
+9 & 19135 & 132148278181 & 033280000000\\
+10 & 22097 & 772529711009 & 848000000000\\
+\end{tabular}\end{center}
+\emph{Remarks.} The representation is uniform in $D$; nothing changes structurally as the
+dimension grows except $s_d$. The same integral representation applies off the diagonal with
+$\prod_k$ carrying distinct exponents, and may be of independent interest for the asymptotics
+of diagonal Geode coefficients.
+
+\subsection*{Acknowledgements}
+I thank Tewodros Amdeberhan, Manuel Kauers and Doron Zeilberger for posing the challenge and
+for their immediate encouragement, Doron Zeilberger and Manuel Kauers for arXiv endorsements,
+and Dean Rubine, whose four-dimensional computation \cite{R} set the benchmark and the target
+for this work. All code, CRT residues, and full decimal values are available at the repository
+cited above.
+\begin{thebibliography}{9}
+\bibitem{AKZ} T.~Amdeberhan, M.~Kauers, D.~Zeilberger, \emph{The Challenge of Computing Geode
+Numbers}, arXiv:2508.10245.
+\bibitem{WR} N.~J.~Wildberger, D.~Rubine, \emph{A Hyper-Catalan Series Solution to Polynomial
+Equations, and the Geode}, Amer.\ Math.\ Monthly 132 (2025), 383--402.
+\bibitem{R} D.~Rubine, \emph{Computing the 4D Geode}, arXiv:2512.21785.
+\bibitem{EE} A.~Erd\'elyi, I.~M.~H.~Etherington, \emph{Some problems of non-associative
+combinations (2)}, Edinburgh Math.\ Notes 32 (1940).
+\end{thebibliography}
+\end{document}

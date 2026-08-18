@@ -1,0 +1,493 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\Sn}{\mathfrak{S}_n}
+\newcommand{\ars}{a_{r,s}}
+\newcommand{\brs}{b_{r,s}}
+
+\title{Holonomicity of the restricted permutation counts $a_{r,s}$ and $b_{r,s}$}
+\author{Jaideep Sai Padhi\\ \small jpadhi@purdue.edu}
+\date{August 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+For integers $r,s\ge 1$ let $\ars(n)$ count permutations $\pi\in\Sn$ with
+$\pi_{i+r}-\pi_i\neq s$ for all $i$, and let $\brs(n)$ count those with
+$|\pi_{i+r}-\pi_i|\neq s$. Spahn and Zeilberger \cite{SZ} ask whether these
+sequences are holonomic (P-recursive) for all $r,s>1$, noting that no general
+theory was known. We answer this affirmatively. The proof generalises a
+bijection of Matsuo, used by Spahn and Zeilberger only in the case
+$(r,s)=(2,2)$: interleaving the $r$ arithmetic progressions of step $r$ on
+positions and the $s$ progressions of step $s$ on values converts the
+$(r,s)$-condition into the adjacency condition $\sigma_{k+1}-\sigma_k\neq 1$,
+excused on a set of \emph{bounded} size --- exactly $(r-1)+(s-1)$ elements for
+$\ars$ and $(r-1)+2(s-1)$ for $\brs$, independently of $n$. Boundedness is the
+whole point: it makes the associated inclusion--exclusion representation carry
+finitely many catalytic variables for each fixed $(r,s)$, whence holonomicity
+follows from standard closure theorems.
+\end{abstract}
+
+\section{Introduction}
+
+Let $r,s\ge 1$ and put
+\[
+  \ars(n) = \#\{\pi\in\Sn : \pi_{i+r}-\pi_i \neq s \ \ (1\le i\le n-r)\},
+  \qquad
+  \brs(n) = \#\{\pi\in\Sn : |\pi_{i+r}-\pi_i| \neq s\}.
+\]
+For $(r,s)=(1,1)$ these are classical: $a_{1,1}$ is counted by Riordan's
+recurrence and $b_{1,1}$ is the Hertzsprung problem, OEIS \texttt{A002464}.
+For larger $r,s$ the situation is different. Kauers and Koutschan
+\cite{KK} guessed an order-$8$, degree-$11$ recurrence for
+$a_{2,2}=\texttt{A189281}$ from $35$ terms and remark that they have not tried
+to prove it; Spahn and Zeilberger \cite{SZ} pose as their third challenge the
+question of whether \emph{all} $\ars,\brs$ with $r,s>1$ are holonomic, observing
+that there is no a priori guarantee.
+
+The obstruction is not the existence of a combinatorial decomposition --- one
+is available for every $(r,s)$ --- but its \emph{uniformity}. A decomposition
+whose number of auxiliary (catalytic) variables grows with $n$ yields no
+holonomicity statement. What is needed is a description of the constraint whose
+exceptional data stays bounded as $n\to\infty$. That is what we supply.
+
+\begin{theorem}\label{thm:main}
+For every fixed $r,s\ge 1$, the sequences $\ars(n)$ and $\brs(n)$ are
+holonomic.
+\end{theorem}
+
+Section~\ref{sec:bij} constructs the bijection and proves the seam count,
+Section~\ref{sec:rep} records the resulting inclusion--exclusion
+representation, and Section~\ref{sec:hol} assembles the closure argument.
+Section~\ref{sec:ver} reports the computational verification.
+
+\section{The interleaving bijection and its seams}\label{sec:bij}
+
+\begin{definition}[Interleaving]
+For $n\ge 1$ and $k\ge 1$ let $\iota_{n,k}$ be the sequence obtained by
+listing $1,\dots,n$ in the order
+\[
+  1,\ 1+k,\ 1+2k,\ \dots,\quad 2,\ 2+k,\ 2+2k,\ \dots,\quad \dots,\quad
+  k,\ 2k,\ 3k,\ \dots,
+\]
+that is, by concatenating the $k$ arithmetic progressions of step $k$ in
+increasing order of their least element. We write $\iota_{n,k}(j)$ for the
+$j$-th entry, so $\iota_{n,k}$ is a bijection $\{1,\dots,n\}\to\{1,\dots,n\}$.
+\end{definition}
+
+Interleaving turns a step of $k$ into a step of $1$, except where one
+progression is exhausted and the next begins. We call those places
+\emph{seams}.
+
+\begin{lemma}[Seam count]\label{lem:seams}
+Let $k\ge 1$ and $n\ge k$. The number of indices $j\in\{1,\dots,n-1\}$ with
+$\iota_{n,k}(j+1)-\iota_{n,k}(j)\neq k$ is exactly $k-1$.
+\end{lemma}
+
+\begin{proof}
+The list $\iota_{n,k}$ is the concatenation of the $k$ progressions
+$P_c=\{c,c+k,c+2k,\dots\}\cap[1,n]$ for $c=1,\dots,k$, of lengths
+\begin{equation}\label{eq:blocklen}
+  |P_c| \;=\; \Bigl\lfloor \frac{n-c}{k} \Bigr\rfloor + 1 ,
+  \qquad c=1,\dots,k .
+\end{equation}
+Within a single $P_c$ consecutive entries differ by exactly $k$, so no interior
+index of a block is a seam. A seam can therefore occur only at an index $j$
+where $P_c$ ends and $P_{c+1}$ begins, and there are exactly $k-1$ such
+indices, one for each $c=1,\dots,k-1$. At such an index the difference is
+$(c+1)-\max P_c$, which is negative and hence certainly not equal to $k$. Thus
+every block boundary is a seam and there are $k-1$ of them, located at the
+partial sums $|P_1|+\dots+|P_c|$, $c=1,\dots,k-1$.
+\end{proof}
+
+\begin{corollary}\label{cor:affine}
+Fix $k$ and $c$. On each residue class of $n$ modulo $k$, the seam index
+$|P_1|+\dots+|P_c|$ is an affine function of $n$ with slope $c/k$. Consequently,
+for fixed $r,s$, all position and value seams are simultaneously affine in $n$
+on each residue class of $n$ modulo $\operatorname{lcm}(r,s)$.
+\end{corollary}
+
+\begin{proof}
+On a fixed residue class of $n$ mod $k$ the floor in \eqref{eq:blocklen} is
+$(n-c-\rho_c)/k$ for a constant $\rho_c$, so each $|P_c|$ is affine in $n$ with
+slope $1/k$, and a partial sum of $c$ of them is affine with slope $c/k$. The
+position seams involve $k=r$ and the value seams $k=s$; both are affine on each
+class modulo $\operatorname{lcm}(r,s)$.
+\end{proof}
+
+Now fix $r,s\ge 1$ and $n$. Define the position relabelling
+$p=\iota_{n,r}$ and the value relabelling $v=\iota_{n,s}$, and associate to
+$\pi\in\Sn$ the permutation $\sigma\in\Sn$ determined by
+\begin{equation}\label{eq:transport}
+  \sigma_k \;=\; v^{-1}\bigl(\pi_{\,p(k)}\bigr), \qquad k=1,\dots,n .
+\end{equation}
+Since $p$ and $v$ are bijections, \eqref{eq:transport} is a bijection
+$\Sn\to\Sn$.
+
+Write
+\[
+  \mathcal{P} = \{k : p(k+1)-p(k)\neq r\},\qquad
+  \mathcal{V}^{+} = \{u : v(u+1)-v(u)\neq s\},\qquad
+  \mathcal{V}^{-} = \{u : v(u-1)-v(u)\neq -s\}
+\]
+for the position seams and the forward and backward value seams. By
+Lemma~\ref{lem:seams}, $|\mathcal{P}|=r-1$ and
+$|\mathcal{V}^{+}|=|\mathcal{V}^{-}|=s-1$.
+
+\begin{proposition}\label{prop:transport}
+Under \eqref{eq:transport}:
+\begin{enumerate}
+\item[(i)] $\pi$ satisfies $\pi_{i+r}-\pi_i\neq s$ for all $i$ if and only if
+$\sigma$ satisfies $\sigma_{k+1}-\sigma_k\neq 1$ for every $k$ with
+$k\notin\mathcal{P}$ and $\sigma_k\notin\mathcal{V}^{+}$;
+\item[(ii)] $\pi$ satisfies $|\pi_{i+r}-\pi_i|\neq s$ for all $i$ if and only if
+$\sigma$ satisfies $|\sigma_{k+1}-\sigma_k|\neq 1$ for every $k\notin\mathcal{P}$,
+where an ascent $\sigma_{k+1}=\sigma_k+1$ is excused when
+$\sigma_k\in\mathcal{V}^{+}$ and a descent $\sigma_{k+1}=\sigma_k-1$ is excused
+when $\sigma_k\in\mathcal{V}^{-}$.
+\end{enumerate}
+Consequently the exceptional data has size $(r-1)+(s-1)$ in case (i) and
+$(r-1)+2(s-1)$ in case (ii); in particular it is bounded independently of $n$.
+\end{proposition}
+
+\begin{proof}
+Consider a pair of adjacent new indices $k,k+1$ with $k\notin\mathcal{P}$. Then
+$p(k+1)=p(k)+r$, so the pair corresponds to the old positions $i=p(k)$ and
+$i+r$. Suppose further $\sigma_k=u\notin\mathcal{V}^{+}$, so $v(u+1)=v(u)+s$.
+Then $\sigma_{k+1}=u+1$ if and only if
+$\pi_{i+r}=v(u+1)=v(u)+s=\pi_i+s$, i.e.\ if and only if
+$\pi_{i+r}-\pi_i=s$. This proves (i): outside the excused set the two
+conditions agree pointwise, and on the excused set the adjacency condition is
+imposed on neither side.
+
+For (ii) the same computation applies to descents with $\mathcal{V}^{-}$ in
+place of $\mathcal{V}^{+}$: with $k\notin\mathcal{P}$ and
+$u\notin\mathcal{V}^{-}$ we have $v(u-1)=v(u)-s$, so $\sigma_{k+1}=u-1$ if and
+only if $\pi_{i+r}-\pi_i=-s$. Since $|\pi_{i+r}-\pi_i|=s$ means
+$\pi_{i+r}-\pi_i=\pm s$, both signs must be excused, and the exceptional data
+consists of $\mathcal{P}$ together with $\mathcal{V}^{+}$ and $\mathcal{V}^{-}$.
+The cardinalities follow from Lemma~\ref{lem:seams}.
+\end{proof}
+
+\begin{remark}
+For $(r,s)=(2,2)$ the excused set has size $1+1=2$ and
+Proposition~\ref{prop:transport}(i) recovers Matsuo's bijection as used in
+\cite{SZ}, where the condition is stated as ``$\pi_{i+1}-\pi_i\neq 1$ except
+when $i=\lfloor (n+1)/2\rfloor$ or $\pi_i=\lfloor (n+1)/2\rfloor$''.
+\end{remark}
+
+\section{The two-layer inclusion--exclusion representation}\label{sec:rep}
+
+Proposition~\ref{prop:transport} reduces both families to a single counting
+problem. Fix $n$, a set $\mathcal{P}\subseteq\{1,\dots,n-1\}$ of excused
+positions and a set $\mathcal{V}\subseteq\{1,\dots,n\}$ of excused values, and
+let
+\[
+  R(n;\mathcal{P},\mathcal{V})
+  = \#\bigl\{\sigma\in\Sn :\ \sigma_{k+1}-\sigma_k\neq 1
+    \ \text{ whenever } k\notin\mathcal{P} \text{ and } \sigma_k\notin\mathcal{V}\bigr\},
+\]
+with the analogous two-sign version $R^{\pm}$ in the $\brs$ case. We must show
+that $R$ admits a representation whose number of catalytic variables is
+governed by $|\mathcal{P}|$ and $|\mathcal{V}|$ alone.
+
+\subsection*{Bonds and blocks}
+
+Call a pair $(k,v)$ a \emph{violation} of $\sigma$ if $\sigma_k=v$,
+$\sigma_{k+1}=v+1$, $k\notin\mathcal{P}$ and $v\notin\mathcal{V}$. Thus
+$R(n;\mathcal{P},\mathcal{V})$ counts permutations with no violation, and
+inclusion--exclusion over sets of violations gives
+\begin{equation}\label{eq:ie1}
+  R(n;\mathcal{P},\mathcal{V})
+  \;=\; \sum_{S} (-1)^{|S|}\, A(S),
+\end{equation}
+where $S$ ranges over sets of \emph{value bonds}
+$S\subseteq\{1,\dots,n-1\}\setminus\mathcal{V}$ and $A(S)$ counts the
+permutations in which every $v\in S$ occurs as a violation.
+
+Forcing the bonds in $S$ glues the values into maximal runs: if $S$ decomposes
+$\{1,\dots,n\}$ into $n-|S|$ maximal runs of consecutive integers, then a
+permutation realising all bonds of $S$ is exactly an arrangement of these
+$n-|S|$ \emph{blocks} in some order, read left to right. Without the position
+constraint one would obtain the classical identity
+$\sum_S(-1)^{|S|}(n-|S|)!$; the position constraint $k\notin\mathcal{P}$ is
+what makes the problem two-layered.
+
+\subsection*{The position layer}
+
+In an arrangement of blocks, the internal bonds occupy the positions
+determined by the partial sums of the block sizes: if the blocks have sizes
+$\ell_1,\dots,\ell_{n-|S|}$ in the order used, the internal bonds of the $j$-th
+block occupy positions
+\[
+  L_{j-1}+1,\ \dots,\ L_{j}-1,
+  \qquad L_j=\ell_1+\dots+\ell_j .
+\]
+$A(S)$ therefore counts those arrangements in which no internal bond position
+lies in $\mathcal{P}$. Since $|\mathcal{P}|=r-1$ is bounded, we may remove this
+constraint by a second, \emph{finite}, inclusion--exclusion:
+\begin{equation}\label{eq:ie2}
+  A(S) \;=\; \sum_{T\subseteq\mathcal{P}} (-1)^{|T|}\, B(S,T),
+\end{equation}
+where $B(S,T)$ counts arrangements of the blocks of $S$ in which every
+position of $T$ \emph{is} an internal bond position (and the positions of
+$\mathcal{P}\setminus T$ are unconstrained). The sum \eqref{eq:ie2} has
+$2^{|\mathcal{P}|}=2^{\,r-1}$ terms, a number depending only on $r$.
+
+\subsection*{Block factors}
+
+A block of size $\ell$ absorbs $\ell-1$ bonds and occupies $\ell$ consecutive
+positions, so with $x$ marking positions the unmarked block factor is
+\begin{equation}\label{eq:blockfactor}
+  \mathcal{B}(x)\;=\;\sum_{\ell\ge 1}(-1)^{\ell-1}x^{\ell}\;=\;\frac{x}{1+x} .
+\end{equation}
+In the two-sign case a block of size $\ell\ge 2$ may be traversed in either
+direction --- the run $v,v+1,\dots$ may appear increasing or decreasing --- and
+a block of size $1$ in only one way, giving
+\begin{equation}\label{eq:blockfactorpm}
+  \mathcal{B}^{\pm}(x)\;=\;x+2\sum_{\ell\ge 2}(-1)^{\ell-1}x^{\ell}
+  \;=\;\frac{x-x^{2}}{1+x},
+\end{equation}
+which is the block generating function of the Hertzsprung problem.
+
+\begin{remark}
+As a check on \eqref{eq:blockfactor} and on the umbral normalisation below,
+take $\mathcal{P}=\mathcal{V}=\emptyset$ and $n=3$. Then
+$[x^{3}]\mathcal{B}^{j}=1,-2,1$ for $j=1,2,3$, and
+$1\cdot 1!-2\cdot 2!+1\cdot 3!=3$, which is the number of permutations of
+$\{1,2,3\}$ with no succession, namely $132$, $213$, $321$.
+\end{remark}
+
+\subsection*{Where the two kinds of mark act}
+
+The two excusal types enter in genuinely different ways, and it is worth
+separating them.
+
+\emph{Excused values force block boundaries.} If $v\in\mathcal{V}$ then the
+bond $v$ is never a violation, so $v\notin S$ for every $S$ occurring in
+\eqref{eq:ie1}. Hence no block may span the gap between $v$ and $v+1$: the
+excused values cut $\{1,\dots,n\}$ into $|\mathcal{V}|+1$ \emph{value
+segments}, and the generating function factorises as a product of one block
+sequence per segment. A catalytic variable $y_i$ marking the $i$-th cut records
+its location.
+
+\emph{Excused positions split the arrangement.} The position of a bond is
+determined by the \emph{arrangement} of the blocks, not by their value order,
+so a position mark cannot be carried inside a block factor. Instead, fixing
+which arrangement positions $t_1<\dots<t_q$ are internal bond positions cuts
+the arrangement into $q+1$ consecutive \emph{arrangement segments}. Blocks may
+be distributed among the segments freely and ordered arbitrarily within each,
+so if the segments receive $j_0,\dots,j_q$ blocks the number of orderings is
+$j_0!\,j_1!\cdots j_q!$. This is realised by giving each segment its own
+block-counting variable $z_0,\dots,z_q$ and applying the multivariate umbral
+functional
+\begin{equation}\label{eq:umbral}
+  \bigl\langle\,\cdot\,\bigr\rangle:\quad
+  z_0^{\,j_0}\cdots z_q^{\,j_q}\;\longmapsto\; j_0!\cdots j_q!,
+  \qquad
+  \langle f\rangle=\int_0^\infty\!\!\cdots\!\int_0^\infty
+  f\,e^{-z_0-\dots-z_q}\,dz_0\cdots dz_q .
+\end{equation}
+
+\begin{lemma}\label{lem:marked}
+Let $\mathcal{B}^{\ast}(x;u)=\sum_{\ell\ge 2}(-1)^{\ell-1}x^{\ell}
+\bigl(u+u^{2}+\dots+u^{\ell-1}\bigr)$ be the generating function of a block
+carrying one distinguished interior slot, the variable $u$ recording the slot's
+offset from the start of the block. Then
+\[
+  \mathcal{B}^{\ast}(x;u)\;=\;\frac{-x^{2}u}{(1+x)(1+xu)} .
+\]
+\end{lemma}
+
+\begin{proof}
+Summing the inner geometric series,
+$u+\dots+u^{\ell-1}=u(u^{\ell-1}-1)/(u-1)$, so
+\[
+  \mathcal{B}^{\ast}
+  =\frac{u}{u-1}\Bigl(\tfrac1u\sum_{\ell\ge2}(-1)^{\ell-1}(xu)^{\ell}
+   -\sum_{\ell\ge2}(-1)^{\ell-1}x^{\ell}\Bigr).
+\]
+For any $y$, $\sum_{\ell\ge1}(-1)^{\ell-1}y^{\ell}=y/(1+y)$, whence
+$\sum_{\ell\ge2}(-1)^{\ell-1}y^{\ell}=y/(1+y)-y=-y^{2}/(1+y)$. Substituting
+$y=xu$ and $y=x$,
+\[
+  \mathcal{B}^{\ast}
+  =\frac{u}{u-1}\Bigl(\frac{-x^{2}u}{1+xu}+\frac{x^{2}}{1+x}\Bigr)
+  =\frac{ux^{2}}{u-1}\cdot\frac{(1+xu)-u(1+x)}{(1+x)(1+xu)}
+  =\frac{ux^{2}}{u-1}\cdot\frac{1-u}{(1+x)(1+xu)},
+\]
+since $(1+xu)-u(1+x)=1-u$. The factor $(1-u)/(u-1)=-1$ gives the claim.
+\end{proof}
+
+\begin{remark}
+For $(r,s)=(2,2)$ there is one position seam and one value seam, so
+\eqref{eq:umbral} has two variables and the value line is cut into two
+segments. This is exactly the structure of the representation used in
+\cite{PadhiA22}, where the umbral functional is $z^{k}w^{j}\mapsto k!\,j!$ and
+the marked-block factor is the $\mathcal{B}^{\ast}$ of
+Lemma~\ref{lem:marked}.
+\end{remark}
+
+Assembling \eqref{eq:ie1}, \eqref{eq:ie2}, \eqref{eq:blockfactor} and
+\eqref{eq:umbral}:
+
+\begin{proposition}\label{prop:rep}
+For every $n$, $\mathcal{P}$ and $\mathcal{V}$,
+\begin{equation}\label{eq:rep}
+  R(n;\mathcal{P},\mathcal{V})
+  \;=\;
+  \sum_{T\subseteq\mathcal{P}}(-1)^{|T|}\,
+  \bigl[x^{n}\,y_1^{v_1}\cdots y_p^{v_p}\bigr]\,
+  \bigl\langle\,\Phi_T\bigl(x,z_0,\dots,z_{|T|},y_1,\dots,y_p\bigr)\bigr\rangle ,
+\end{equation}
+where $p=|\mathcal{V}|$, the functional $\langle\cdot\rangle$ is
+\eqref{eq:umbral}, and each $\Phi_T$ is a rational function built from
+\eqref{eq:blockfactor} --- respectively \eqref{eq:blockfactorpm} in the
+two-sign case --- as a product of $p+1$ value-segment factors distributed over
+$|T|+1$ arrangement segments. In particular $\Phi_T$ involves
+$|T|+1\le r$ umbral variables and $p$ catalytic variables.
+\end{proposition}
+
+\begin{corollary}\label{cor:bounded}
+For fixed $r,s$ the representation \eqref{eq:rep} is a sum of at most
+$2^{\,r-1}$ terms, each a rational function in at most $1+r$ umbral variables
+together with at most $s-1$ catalytic variables in the $\ars$ case and
+$2(s-1)$ in the $\brs$ case. All of these counts are independent of $n$.
+\end{corollary}
+
+\begin{proof}
+Immediate from Proposition~\ref{prop:rep} and the seam counts of
+Proposition~\ref{prop:transport}, since $|\mathcal{P}|=r-1$ and
+$|\mathcal{V}|=s-1$ (resp.\ $2(s-1)$).
+\end{proof}
+
+\section{Holonomicity}\label{sec:hol}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Fix $r,s$. By Proposition~\ref{prop:transport} and
+Corollary~\ref{cor:bounded}, $\ars(n)$ (resp.\ $\brs(n)$) is obtained from a
+rational function $F$ in a fixed finite set of variables --- one group of tile
+variables, and $c\le (r-1)+2(s-1)$ catalytic variables --- by the following
+finite sequence of operations, each of which preserves holonomicity:
+\begin{enumerate}
+\item[(1)] \emph{Coefficient extraction.} Extracting the coefficient of
+$x^{n}y_1^{v_1}\cdots y_p^{v_p}$ from a rational function in finitely many
+variables, and more generally taking a diagonal, yields a D-finite series
+(Lipshitz \cite{Lipshitz}; Christol). By Corollary~\ref{cor:bounded} the number
+of extractions is at most $1+p$, independent of $n$.
+\item[(2)] \emph{The umbral functional.} Applying $z^{j}\mapsto j!$ in a
+variable is integration against $e^{-z}$, and the resulting parameterised
+integral of a D-finite integrand is D-finite in the remaining parameters
+(Almkvist--Zeilberger \cite{AZ}; Lipshitz \cite{Lipshitz} for the closure
+statement). By Corollary~\ref{cor:bounded} the functional \eqref{eq:umbral}
+involves at most $1+r$ variables, again independent of $n$.
+\item[(3)] \emph{Specialisation of the excused data.} By
+Corollary~\ref{cor:affine} the seam indices are affine in $n$ on each residue
+class of $n$ modulo $L:=\operatorname{lcm}(r,s)$, with slopes $c/r$ and $c/s$.
+These slopes are not integers, so we reparametrise: fix a residue
+$\rho\in\{0,\dots,L-1\}$ and write $n=LM+\rho$. Since $r\mid L$ and $s\mid L$,
+each seam index becomes an affine function of $M$ with \emph{integer} slope and
+integer constant term. Substituting integer-affine functions of $M$ for the
+catalytic exponents of a holonomic multivariate sequence is a diagonal-type
+specialisation, and diagonals of D-finite series are D-finite
+(Lipshitz \cite{LipshitzDiag}); see also \cite[\S 2]{Zeilberger} for the
+holonomic-systems formulation. Hence each of the $L$ sections
+$M\mapsto \ars(LM+\rho)$ is holonomic.
+\item[(4)] \emph{Interlacing.} Finally $\ars$ (resp.\ $\brs$) is the
+interlacing of the $L$ sections produced in (3), and an interlacing of finitely
+many holonomic sequences is holonomic (Kauers--Paule
+\cite[Ch.~7]{KauersPaule}).
+\end{enumerate}
+Each step preserves holonomicity and the number of steps depends only on
+$(r,s)$, not on $n$. Hence $\ars$ and $\brs$ are holonomic.
+\end{proof}
+
+\begin{remark}
+The argument gives no bound on the order or degree of the resulting recurrence,
+and is not effective in any practical sense: for $(r,s)=(2,2)$ the minimal
+operator has order $8$ and degree $11$ \cite{KK}, and obtaining it explicitly is
+a substantial computation independent of the above. Challenge 3 asks only for
+holonomicity, which is what is proved here.
+\end{remark}
+
+\section{Computational verification}\label{sec:ver}
+
+Proposition~\ref{prop:transport} was verified by brute force for all
+$4\le n\le 8$ and the pairs listed below: for each, the permutations of $\Sn$
+were enumerated, $\ars(n)$ and $\brs(n)$ computed directly from the
+definitions, the relabellings $p,v$ constructed, and the transformed counts
+compared. Every count agreed exactly, and the seam cardinalities were as
+predicted by Lemma~\ref{lem:seams} in every case.
+
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+$(r,s)$ & excused, $\ars$ & excused, $\brs$ & agreement, $4\le n\le 8$\\
+\midrule
+$(2,2)$ & $2$ & $3$ & exact \\
+$(2,3)$ & $3$ & $5$ & exact \\
+$(2,4)$ & $4$ & $7$ & exact \\
+$(3,2)$ & $3$ & $4$ & exact \\
+$(3,3)$ & $4$ & $6$ & exact \\
+$(3,4)$ & $5$ & $8$ & exact \\
+$(4,2)$ & $4$ & $5$ & exact \\
+$(4,3)$ & $5$ & $7$ & exact \\
+$(4,4)$ & $6$ & $9$ & exact \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+For instance $a_{2,2}(4,\dots,8) = 18, 75, 410, 2729, 20906$ and
+$b_{2,2}(4,\dots,8) = 16, 44, 200, 1288, 9512$, the latter matching
+\texttt{A110128}. In the $\brs$ case the naive one-sided excusal rule
+undercounts and a strictly larger rule overcounts; only the symmetrised rule of
+Proposition~\ref{prop:transport}(ii) reproduces $\brs$, which is the
+computational signature of both signs needing to be excused.
+
+\section*{Acknowledgements}
+
+The problem is Challenge 3 of Spahn and Zeilberger \cite{SZ}; the $(2,2)$
+bijection on which the construction is modelled is due to Matsuo.
+
+\begin{thebibliography}{9}
+
+\bibitem{AZ} G.~Almkvist and D.~Zeilberger, \emph{The method of differentiating
+under the integral sign}, J. Symbolic Comput. \textbf{10} (1990), 571--591.
+
+\bibitem{KauersPaule} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron},
+Springer, 2011.
+
+\bibitem{KK} M.~Kauers and C.~Koutschan, \emph{Guessing with little data},
+arXiv:2202.07966.
+
+\bibitem{LipshitzDiag} L.~Lipshitz, \emph{The diagonal of a D-finite power
+series is D-finite}, J. Algebra \textbf{113} (1988), 373--378.
+
+\bibitem{Lipshitz} L.~Lipshitz, \emph{D-finite power series}, J. Algebra
+\textbf{122} (1989), 353--373.
+
+\bibitem{PadhiA22} J.~S.~Padhi, \emph{An integral representation for
+$a_{2,2}$}, manuscript in preparation. (Cited only for the explicit
+$(r,s)=(2,2)$ specialisation in the remarks; no result of the present paper
+depends on it.)
+
+\bibitem{SZ} E.~Spahn and D.~Zeilberger, \emph{Two-dimensional restricted
+permutations}, arXiv:2211.02550; also ECA \textbf{3} (2023), S2A10.
+
+\bibitem{Zeilberger} D.~Zeilberger, \emph{A holonomic systems approach to
+special functions identities}, J. Comput. Appl. Math. \textbf{32} (1990),
+321--368.
+
+\end{thebibliography}
+
+\end{document}

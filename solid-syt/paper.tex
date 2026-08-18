@@ -1,0 +1,230 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{hyperref}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\bx}{\bar x}\newcommand{\by}{\bar y}
+\newcommand{\CT}{\operatorname{CT}}
+\newcommand{\Bal}{\operatorname{Bal}}
+\title{A proof of Zeilberger's recurrence for solid standard Young tableaux\\ of shape $[[n,n],[n,1]]$}
+\author{Jaideep Sai Padhi\thanks{Purdue University; \texttt{jpadhi@purdue.edu}}}
+\date{August 2026}
+\begin{document}
+\maketitle
+\noindent\textbf{Keywords:} solid standard Young tableaux; Kreweras walks; algebraic generating functions; kernel method; P-recursive sequences.\\
+\textbf{MSC 2020:} 05A15 (primary); 05A19, 05E10 (secondary).
+
+\begin{abstract}
+Let $g(n)$ denote the number of solid standard Young tableaux of the two-layer shape $[[n,n],[n,1]]$. In his \emph{First Rigorous Challenge} accompanying the solid-SYT project, Zeilberger observed empirically that $g(n)$ satisfies a linear recurrence of order $2$ with polynomial coefficients of degree $12$, and offered a prize for a proof. We prove the recurrence. The proof proceeds by a deletion--insertion bijection reducing $g(n)$ to weighted enumerations of Kreweras-type lattice walks in the quarter plane, which we evaluate in closed form via the algebraic kernel method of Bousquet-M\'elou and Mishna. Along the way we obtain several enumerative results of independent interest: a closed form for reverse-Kreweras walks ending on the diagonal, an explicit algebraic generating function for the diagonal, and the identity that the ballot-weighted sum $\sum_{a\ge c}\Bal(a,c)\,k(3n-a-c;a,a-c)$ counts reverse-Kreweras walks of length $3n+1$ ending at $(1,0)$. The recurrence itself is explained structurally: $g$ lies in a $2$-dimensional module over $\mathbb{Q}(n)$ spanned by two hypergeometric terms, which forces a second-order recurrence and produces its coefficients by Cramer's rule.
+\end{abstract}
+
+\section{Introduction}
+A \emph{solid standard Young tableau} (solid SYT) of a solid (three-dimensional) shape $S$ with $N$ cells is a bijective filling of the cells of $S$ by $1,2,\dots,N$ that increases in each of the three coordinate directions. Solid SYT were introduced and popularized by Zeilberger as a three-dimensional analogue of standard Young tableaux; in contrast to the classical case, no product formula is known, and the counting sequences appear to be substantially wilder.
+
+We consider the two-layer shape $S_n = [[n,n],[n,1]]$: the first layer consists of two rows of length $n$, the second layer of a row of length $n$ atop the first row and a single cell atop the first cell of the second row; $|S_n| = 3n+1$. Write $g(n)$ for the number of solid SYT of $S_n$. The sequence begins
+\[ 2,\ 48,\ 1038,\ 22566,\ 500144,\ 11302300,\ 259808162,\ 6059911302,\ \dots \]
+Zeilberger computed $g(n)$ for $n\le 40$ and observed empirically that the sequence is $P$-recursive of order $2$ with coefficients of degree $12$; his \emph{First Rigorous Challenge} asks for a proof. The present paper provides one.
+
+\begin{theorem}\label{thm:main}
+Let $K(n) = \dfrac{4^n(3n)!}{(n+1)!\,(2n+1)!}$ be the $n$-th Kreweras number, and set
+\[ c(n) \;=\; \frac{8n^2+n-24}{4(n+2)(2n+3)},\qquad
+T(n) \;=\; \frac{7n+5}{5}\prod_{k=1}^{n}\frac{6(2k-1)(6k-1)(6k+1)}{(k+1)(4k+3)(4k+5)}. \]
+Then for all $n\ge 1$,
+\[ g(n) \;=\; c(n)\,(3n+1)K(n) \;+\; T(n). \]
+Consequently $g$ lies in the $2$-dimensional $\mathbb{Q}(n)$-module spanned by the hypergeometric terms $(3n+1)K(n)$ and $T(n)$, and therefore satisfies a second-order linear recurrence with polynomial coefficients; the resulting operator, computed by Cramer's rule and displayed in Appendix~\ref{app:op}, has coefficients of degree $12$ and coincides with Zeilberger's empirical recurrence. The recurrence has been verified against the first $56$ terms of the sequence.
+\end{theorem}
+
+The route to Theorem~\ref{thm:main} passes through the enumeration of \emph{reverse Kreweras walks}: quarter-plane walks with steps $E=(1,0)$, $N=(0,1)$, $D=(-1,-1)$. Writing $k(m;i,j)$ for the number of such walks of length $m$ from the origin to $(i,j)$, we prove two evaluation lemmas which we believe are of independent interest.
+
+\begin{theorem}[Diagonal evaluation]\label{thm:B}
+For all $n\ge 0$,
+\[ \sum_{a=0}^{n} k(3n-a;\,a,a) \;=\; T(n). \]
+Moreover the individual diagonal counts admit the closed form
+\[ k(3n-a;\,a,a) \;=\; K(n)\cdot\frac{(a+1)!\,(2a+1)!\,n!\,(3n-a)!}{4^{a}\,(a!)^{3}\,(n-a)!\,(3n)!},\qquad 0\le a\le n, \]
+and the diagonal generating function is algebraic:
+\begin{equation}\label{eq:Qd}
+Q_d(x;t) \;:=\; \sum_{m,a\ge0} k(m;a,a)\,x^a t^m \;=\;
+\frac{1}{\sqrt{1-xT^2}}\left(\frac{T}{2t} + \frac{\sqrt{1-xT^2}-1+\tfrac{1}{2}xT^2}{t\,x^{2}}\right),
+\end{equation}
+where $T\equiv T(t)$ is the unique power series satisfying $T = t\,(2+T^{3})$.
+\end{theorem}
+
+\begin{theorem}[Ballot-weighted evaluation]\label{thm:A}
+Let $\Bal(a,c) = \frac{a-c+1}{a+1}\binom{a+c}{c}$ denote the ballot numbers. Then for all $n\ge0$,
+\[ S(n) \;:=\; \sum_{0\le c\le a} \Bal(a,c)\, k(3n-a-c;\,a,\,a-c) \;=\; k(3n+1;\,1,0) \;=\; \frac{3(9n+16)(3n+1)}{8(n+2)(2n+3)}\,K(n). \]
+\end{theorem}
+
+The first equality in Theorem~\ref{thm:A} -- the ballot-weighted sum counts plain walks to $(1,0)$ -- falls out of the kernel method in two lines once the correct substitution is found (Section~\ref{sec:lemA}); we do not know a direct bijection and pose finding one as an open problem.
+
+\paragraph{Method and attribution.} Our main tools are the functional-equation and algebraic-kernel techniques developed by Bousquet-M\'elou for the Kreweras model \cite{BM05} and applied to the reverse model by Mishna \cite{Mishna}. The extraction that produces \eqref{eq:Qd} appears to be new, as do the closed forms in Theorems \ref{thm:B} and \ref{thm:A}. All symbolic computations (resultants, an exact ODE derivation in a radical function field, and two rational-function identities) were carried out in exact arithmetic and are reproducible from the accompanying code.
+
+\section{From tableaux to walks}\label{sec:bij}
+Order the rows of $S_n$ as $(1,1),(1,2),(2,1)$ (the three rows of length $n$) and $(2,2)$ (the single cell). A solid SYT of $S_n$ is equivalent to a growth sequence $\varnothing = P_0 \subset P_1 \subset \cdots \subset P_{3n+1} = S_n$ of solid subshapes, each step adding one cell. Recording after each step the number of filled cells $x_{11},x_{12},x_{21},x_{22}$ in the four rows, the constraints of solid-shape containment are precisely
+\[ n \ge x_{11} \ge x_{12},\qquad x_{11}\ge x_{21},\qquad x_{12}\ge x_{22}\cdot(\text{first cell}),\quad x_{21}\ge x_{22}, \qquad x_{22}\le 1 . \]
+More precisely, the cell of row $(2,2)$ sits above the first cell of row $(2,1)$ and in front of the first cell of row $(1,2)$; it may be added exactly when $x_{12}\ge1$ and $x_{21}\ge1$.
+
+\begin{lemma}[Deletion--insertion]\label{lem:bij}
+Solid SYT of $S_n$ are in bijection with pairs $(w,\tau)$ where $w$ is a lattice walk of length $3n$ from $(0,0,0)$ to $(n,n,n)$ with unit steps in the coordinates $(x_{11},x_{12},x_{21})$ staying in the cone $x_{11}\ge x_{12},\ x_{11}\ge x_{21}$, and $\tau\in\{0,1,\dots,3n\}$ is an index with $x_{12}(\tau)\ge1$ and $x_{21}(\tau)\ge1$.
+\end{lemma}
+\begin{proof}
+Given a solid SYT, delete the cell of row $(2,2)$ and record $\tau=$ (its label${}-1$), the number of cells added before it. What remains is a growth sequence of the shape $[[n,n],[n]]$, i.e.\ a walk $w$ as described; the insertion condition at time $\tau$ is $x_{12}(\tau)\ge1$, $x_{21}(\tau)\ge1$ as noted above. The inverse re-inserts the cell after step $\tau$ and shifts later labels by one. \end{proof}
+
+In the difference coordinates $u = x_{11}-x_{12}$, $v = x_{11}-x_{21}$ the three step types $11,12,21$ become $(1,1),(-1,0),(0,-1)$ and the cone becomes the quarter plane: $w$ is a \emph{Kreweras excursion} of length $3n$ (in the reversed orientation, an excursion as well), whence the count $K(n)$ of Kreweras \cite{Kreweras}. Complementary counting over the $3n+1$ slots, using the $x_{12}\leftrightarrow x_{21}$ symmetry, gives:
+
+\begin{lemma}\label{lem:cc}
+$\displaystyle g(n) = (3n+1)K(n) - 2S(n) + T(n)$, where
+\[ S(n) = \sum_{\tau} \#\{w:\ x_{12}(\tau)=0\},\qquad T(n) = \sum_{\tau} \#\{w:\ x_{12}(\tau)=x_{21}(\tau)=0\}. \]
+\end{lemma}
+
+\begin{lemma}[Prefix factorization]\label{lem:pf}
+With $k(m;i,j)$ the reverse-Kreweras counts as in the introduction,
+\[ T(n) = \sum_{a=0}^{n} k(3n-a;\,a,a), \qquad
+S(n) = \sum_{0\le c\le a} \Bal(a,c)\,k(3n-a-c;\,a,\,a-c). \]
+\end{lemma}
+\begin{proof}
+If $x_{12}(\tau)=x_{21}(\tau)=0$ the prefix consists of $a:=\tau$ steps of type $11$ only, leaving the state $(u,v)=(a,a)$; the completion is an arbitrary walk from $(a,a)$ to $(0,0)$ with steps $(1,1),(-1,0),(0,-1)$ in the quarter plane, of length $3n-a$. Reversing time turns it into a reverse-Kreweras walk from the origin to $(a,a)$, giving $k(3n-a;a,a)$. If only $x_{12}(\tau)=0$, the prefix uses $a$ steps of type $11$ and $c$ steps of type $21$ with $x_{11}\ge x_{21}$ throughout: a ballot sequence, $\Bal(a,c)$ choices, ending at $(u,v)=(a,a-c)$; the completion contributes $k(3n-a-c;a,a-c)$ likewise.
+\end{proof}
+
+Theorem~\ref{thm:main} thus reduces to Theorems \ref{thm:B} and \ref{thm:A} (proved in Sections \ref{sec:kernel}--\ref{sec:lemA}) together with the module computation of Section \ref{sec:module}.
+
+\section{The reverse Kreweras model and two extractions}\label{sec:kernel}
+Let $Q(x,y;t) = \sum_{m,i,j\ge0} k(m;i,j)x^iy^jt^m$ be the complete generating function of reverse-Kreweras walks. Constructing walks step by step (a $D$-step may not be appended to a walk ending on either axis) yields
+\begin{equation}\label{eq:FE}
+\big(xy - t(x^2y+xy^2+1)\big)\,Q(x,y) \;=\; xy - R(x) - R(y) + c,
+\end{equation}
+where $R(x) := t\,Q(x,0;t)$ and $c := t\,Q(0,0;t)$; note $Q(x,0)=Q(0,x)$ by the $x\leftrightarrow y$ symmetry, and the $+c$ arises from inclusion--exclusion at the origin. The kernel $K(x,y) = xy - t(x^2y+xy^2+1)$, viewed as a quadratic in $y$, has roots with
+\[ Y_0Y_1 = \bx,\qquad Y_0+Y_1 = \tfrac1t - x,\qquad \Delta(x) := (1-tx)^2 - 4t^2\bx \]
+(the discriminant after normalization), $Y_0 = \frac{(1-tx)-\sqrt{\Delta(x)}}{2t}$ being the root that is a formal power series in $t$. The rational kernel $1-t(x+y+\bx\by)$ is invariant under $(x,y)\mapsto(\bx\by,\,y)$ and $(x,y)\mapsto(x,\,\bx\by)$, generating an orbit of six pairs, exactly as in \cite[\S2.3]{BM05} and \cite[\S2.3]{Mishna}.
+
+\begin{lemma}[Validity]\label{lem:valid}
+All manipulations of this section are identities of formal series in $t$ whose coefficients are Laurent polynomials in $x$ (and $y$). Indeed $[t^m]Q(x,y)$ is a polynomial of degree at most $m$ in each variable, so the substitutions $(x,y)\mapsto(\bx\by,y)$ and $(x,y)\mapsto(x,\bx\by)$ produce elements of $\mathbb{Q}[x,\bx,y,\by][[t]]$ and the orbit combination is well defined. For the partial-fraction step, factor $K(x,y) = -tx\,(y-Y_0)(y-Y_1)$; the roots satisfy $Y_0 = t\bx + O(t^2) \in t\,\mathbb{Q}[x,\bx][[t]]$ and $1/Y_1 = xY_0 \in t\,\mathbb{Q}[x,\bx][[t]]$ (from $Y_0Y_1=\bx$), so the expansions
+$\frac{1}{y-Y_0} = \by\sum_{k\ge0}(Y_0\by)^k$ and $\frac{1}{y-Y_1} = -\frac1{Y_1}\sum_{k\ge0}(y/Y_1)^k$
+converge coefficient-wise in $t$, each coefficient of $t^m$ being a Laurent polynomial. Hence $[y^0]$ of any product appearing below is well defined and may be computed term by term; the same applies to the splittings $[\cdot]^{>0}$, $[\cdot]^{\le 0}$ in $x$ used in the proofs of Propositions \ref{prop:Qd} and \ref{prop:R}.
+\end{lemma}
+
+Substituting the pairs $(x,y)$, $(\bx\by,y)$, $(x,\bx\by)$ into \eqref{eq:FE} (legitimate by Lemma \ref{lem:valid}), and forming the combination (first)$-$(second)$+$(third) so that only $R(x)$ survives among the unknown univariate series, we obtain
+\[ K_r\cdot\big[\,xyQ(x,y) - \bx Q(\bx\by,y) + \by Q(x,\bx\by)\,\big] \;=\; xy - \bx + \by + c - 2R(x). \]
+Dividing by the rational kernel $K_r$, expanding $1/K_r$ by partial fractions in $y$ (valid in the annulus dictated by $Y_0,Y_1$), and extracting the constant term in $y$ -- only the middle term on the left contributes, producing the diagonal -- yields the fundamental \emph{diagonal equation}
+\begin{equation}\label{eq:star}
+-\,\bx\,Q_d(\bx;t)\,\sqrt{\Delta(x)} \;=\; c \;-\; \bx \;-\; 2R(x) \;+\; 2xY_0 .
+\end{equation}
+Under $x\mapsto\bx$ this is equation (2.4) of \cite{Mishna}; we verified \eqref{eq:star} independently to order $t^{11}$.
+
+\paragraph{Canonical factorization.} The Laurent polynomial $x\,\Delta(x) = t^2x^3-2tx^2+x-4t^2$ has one root $X_0 = 4t^2+O(t^3)$ that is small, and two large roots; writing $\Delta = \Delta_0\,\Delta_+(x)\,\Delta_-(\bx)$ in the frame of the Kreweras discriminant (substitute $x\mapsto \bx$; see \cite[\S2.2]{BM05}) one finds, with $T = t(2+T^3)$ the series of Theorem \ref{thm:B},
+\[ \Delta_0 = \frac{4t^2}{T^2},\qquad \Delta_+(x) = 1-xT^2,\qquad \Delta_-(\bx) = 1 - \bx\,T\big(1+\tfrac{T^3}{4}\big) + \bx^2\,\tfrac{T^2}{4}. \]
+
+Two coefficient extractions from \eqref{eq:star}, after division by $\sqrt{\Delta_0\Delta_-(\bx)}$, now separate the two unknowns. Extracting the \emph{strictly positive} part in $x$ eliminates every $R$-term (they carry only nonpositive powers) and solves for the diagonal:
+
+\begin{proposition}\label{prop:Qd}
+$Q_d(x;t)$ is given by the closed form \eqref{eq:Qd}. In particular $Q_d(0;t) = (4T-T^4)/(8t)$ recovers the excursion generating function.
+\end{proposition}
+
+Extracting the \emph{nonpositive} part instead eliminates the diagonal and solves for the axis series:
+
+\begin{proposition}\label{prop:R}
+\[ R(\bx) \;=\; \tfrac12\Big[\,c - x + \tfrac{\bx}{t} - \bx^{2} + \big(x + T - \tfrac{2\bx}{T}\big)\sqrt{\Delta_-(\bx)}\,\Big]. \]
+\end{proposition}
+
+\begin{proof}[Proof of Propositions \ref{prop:Qd} and \ref{prop:R}]
+Both propositions follow from one splitting. Substituting $2xY_0 = x(1-tx)/t - (x/t)\sqrt{\Delta(x)}$ into \eqref{eq:star} and rearranging gives
+\begin{equation}\label{eq:dagger}
+\sqrt{\Delta(x)}\;\Big(\frac{x}{t} - \bx\,Q_d(\bx)\Big) \;=\; c - \bx + \frac{x}{t} - x^{2} - 2R(x),
+\end{equation}
+and applying $x\mapsto\bx$ (Lemma \ref{lem:valid}),
+\begin{equation}\label{eq:daggerbar}
+\sqrt{\Delta(\bx)}\;\Big(\frac{\bx}{t} - x\,Q_d(x)\Big) \;=\; c - x + \frac{\bx}{t} - \bx^{2} - 2R(\bx).
+\end{equation}
+The canonical factorization $\Delta(\bx) = \Delta_0\,\Delta_+(x)\,\Delta_-(\bx)$, with the three factors displayed above, is an identity of series in $t$ (it is the splitting of the cubic $\bx\,\Delta(\bx)$ according to the $t$-adic size of its roots, cf.\ \cite[\S2.2]{BM05}; we also verified it directly by expanding both sides using $T=t(2+T^3)$). Dividing \eqref{eq:daggerbar} by $\sqrt{\Delta_0\,\Delta_-(\bx)}$ yields the \emph{split form}
+\begin{equation}\label{eq:split}
+\sqrt{\Delta_+(x)}\;\Big(\frac{\bx}{t} - x\,Q_d(x)\Big) \;=\; \frac{c - x + \bx/t - \bx^{2} - 2R(\bx)}{\sqrt{\Delta_0}\,\sqrt{\Delta_-(\bx)}}.
+\end{equation}
+Now classify supports in $x$ (all statements per coefficient of $t^m$). On the left, the unknown block $x\,Q_d(x)\sqrt{\Delta_+(x)}$ involves only powers $x^{\ge1}$, since $Q_d(x)\in\mathbb{Q}[x][[t]]$ and $\sqrt{1-xT^2}\in\mathbb{Q}[x][[t]]$. On the right, the unknown block $2R(\bx)/(\sqrt{\Delta_0}\sqrt{\Delta_-(\bx)})$ involves only powers $x^{\le0}$, since $R(\bx)$, $1/\sqrt{\Delta_-(\bx)}\in\mathbb{Q}[\bx][[t]]$ and $1/\sqrt{\Delta_0}=T/(2t)$ is free of $x$.
+
+\emph{Positive part.} Applying $[\cdot]^{>0}$ to \eqref{eq:split} kills the $R$-block:
+\[ x\,Q_d(x)\sqrt{\Delta_+(x)} \;=\; \Big[\sqrt{\Delta_+(x)}\,\tfrac{\bx}{t}\Big]^{>0} \;-\; \Big[\tfrac{T}{2t}\,\tfrac{c - x + \bx/t - \bx^{2}}{\sqrt{\Delta_-(\bx)}}\Big]^{>0}. \]
+Both extractions evaluate in closed form. Writing $\sqrt{\Delta_+(x)} = \sum_{j\ge0}\binom{1/2}{j}(-xT^2)^j$, the first is $\big(\sqrt{1-xT^2}-1+\tfrac{xT^2}{2}\big)/(tx)$ (the terms $j\ge2$). In the second, every product of $\{c,\bx/t,\bx^2\}$ with the $\bx$-series $1/\sqrt{\Delta_-(\bx)}$ has only powers $x^{\le0}$; the single term reaching a positive power is $(-x)\cdot[\bx^0]\tfrac{1}{\sqrt{\Delta_-(\bx)}} = -x$, contributing $+\,xT/(2t)$ after the outer sign. Hence
+\[ x\,Q_d(x)\sqrt{\Delta_+(x)} \;=\; \frac{\sqrt{1-xT^2}-1+\tfrac{xT^2}{2}}{tx} \;+\; \frac{xT}{2t}, \]
+and dividing by $x\sqrt{\Delta_+(x)}$ gives exactly \eqref{eq:Qd}, proving Proposition \ref{prop:Qd}.
+
+\emph{Nonpositive part.} Applying $[\cdot]^{\le0}$ to \eqref{eq:split} instead kills the $Q_d$-block and determines $R$:
+\[ \frac{2R(\bx)}{\sqrt{\Delta_0}\sqrt{\Delta_-(\bx)}} \;=\; \Big[\tfrac{T}{2t}\,\tfrac{c - x + \bx/t - \bx^{2}}{\sqrt{\Delta_-(\bx)}}\Big]^{\le0} \;-\; \Big[\sqrt{\Delta_+(x)}\,\tfrac{\bx}{t}\Big]^{\le0}, \]
+where now $\big[\sqrt{\Delta_+(x)}\bx/t\big]^{\le0} = \bx/t - T^2/(2t)$ (the terms $j\le1$) and $[-x/\sqrt{\Delta_-(\bx)}]^{\le0} = -x\big(1/\sqrt{\Delta_-(\bx)}-1\big)$. Multiplying through by $\tfrac12\sqrt{\Delta_0}\sqrt{\Delta_-(\bx)}$ and collecting terms yields the formula of Proposition \ref{prop:R}. (We verified the collected form symbolically, and both propositions independently against the walk counts to orders $t^{15}$ and $t^{13}$ respectively; every displayed intermediate identity above was additionally machine-checked coefficient-wise.) Proposition \ref{prop:R} is equivalent to, and corrects a typographical corruption in the published form of, the axis result of \cite{Mishna}.
+\end{proof}
+
+\section{Proof of Theorem \ref{thm:B}}\label{sec:lemB}
+Since a reverse-Kreweras walk to $(a,a)$ has length $\equiv 2a \pmod 3$, the substitution $x=t$ aligns exponents: 
+\[ A(t) \;:=\; Q_d(t;t) \;=\; \sum_{n\ge0}\Big(\sum_{a} k(3n-a;a,a)\Big)t^{3n} \;=\; \sum_{n\ge0}\widetilde T(n)\,t^{3n}, \]
+where $\widetilde T(n)$ denotes the left side of Theorem \ref{thm:B}. By Proposition \ref{prop:Qd}, $A$ is an explicit element of the field $\mathbb{Q}(t,T,\sigma)$ with $\sigma = \sqrt{1-tT^2}$: eliminating $\sigma$ and $T$ by resultants gives the minimal polynomial $P(t,A)$ of degree $6$ (Appendix \ref{app:ode}); $P$ is a polynomial in $t^3$, and $P(0,B) = 2B-2$, so by Hensel's lemma $A$ is the \emph{unique} power-series root with constant term $1$.
+
+Differentiation is explicit in the tower: $T' = (2+T^3)/(1-3tT^2)$ and $\sigma' = -(T^2+2tTT')/(2\sigma)$, with reductions $T^3=(T-2t)/t$ and $\sigma^2 = 1-tT^2$. Computing $A',A'',A'''$ in the $6$-dimensional basis $\{T^i\sigma^j\}$ and solving a linear system over $\mathbb{Q}(t)$ produces an \emph{exact} inhomogeneous ODE
+\[ q_c(t) + q_0(t)A + q_1(t)A' + q_2(t)A'' + q_3(t)A''' = 0 \]
+with the polynomial coefficients of Appendix \ref{app:ode}. Every step of this derivation is exact rational-function arithmetic; as a safeguard the ODE was verified on the series of $A$ to order $t^{19}$. Extracting coefficients converts the ODE into a recurrence supported on shifts $\{-6,-3,0\}$ in the exponent of $t$, hence a second-order recurrence $\sum_{i=0}^{2}\gamma_i(n)\widetilde T(n-i) = 0$ valid for $n \ge 2$. Finally, one checks -- an identity of rational functions, verified symbolically -- that the hypergeometric ratio
+\[ \frac{T(m)}{T(m-1)} \;=\; \frac{6(2m-1)(6m-1)(6m+1)(7m+5)}{(m+1)(4m+3)(4m+5)(7m-2)} \]
+of the claimed closed form satisfies the same recurrence, that the leading coefficient $\gamma_0(n)$ has no integer zeros $n\ge2$, and that the initial values agree. By induction $\widetilde T(n) = T(n)$ for all $n$. For the per-$a$ closed form, extract $[x^a]$ from \eqref{eq:Qd}: with $u=xT^2$, one has $[u^j](1-u)^{-1/2} = \binom{2j}{j}4^{-j}$ and
+\[ [u^j]\Big(1 - \big(1-\tfrac u2\big)(1-u)^{-1/2}\Big) \;=\; -\,\binom{2j-2}{j-1}4^{-(j-1)}\,\frac{j-1}{2j}\qquad(j\ge1), \]
+an identity of binomial coefficients (checked symbolically). Hence
+\[ [x^a]\,Q_d \;=\; \frac1t\left[\frac{\binom{2a}{a}}{2\cdot4^{a}}\,T^{2a+1} \;-\; \frac{(a+1)\binom{2a+2}{a+1}}{2(a+2)\,4^{a+1}}\,T^{2a+4}\right], \]
+and applying Lagrange inversion $[t^N]T^k = \frac kN\binom{N}{(N-k)/3}2^{N-(N-k)/3}$ at $N = 3n-a+1$ gives $k(3n-a;a,a)$ as an explicit two-term Gamma expression. That this expression equals the product form displayed in Theorem \ref{thm:B} -- equivalently, that the ratio in $a$ is $\frac{(a+2)(n-a)(2a+3)}{2(a+1)^2(3n-a)}$ -- is an identity of Gamma quotients whose ratio to the claimed form simplifies to $1$; we verified this simplification symbolically, and the values numerically for all $0\le a\le n\le 8$. \qed
+
+\section{Proof of Theorem \ref{thm:A}}\label{sec:lemA}
+Let $C(z) = 1+zC(z)^2$ be the Catalan series. By Lambert's generalized binomial theorem, $\sum_{c\ge0}\Bal(b+c,c)z^c = C(z)^{b+1}$, and hence the ballot-weighted sum telescopes into a single substitution:
+\[ \sum_{n} S(n)t^{3n} \;=\; \CT_x\Big[\,C(t^2\bx)\; Q\big(x,\;t\bx\,C(t^2\bx);\,t\big)\Big], \]
+where $\CT_x$ takes the coefficient of $x^0$ (all objects are Laurent series in $x$ with polynomial coefficients per power of $t$, so this is well defined). Write $y^* = t\bx\,C(t^2\bx) = \frac{1-\sqrt{1-4t^2\bx}}{2t}$. The series $y^*$ contains only strictly negative powers of $x$, and satisfies
+\[ txy^{*2} - xy^* + t = 0,\qquad\text{i.e.}\qquad xy^* = t + t\,x\,y^{*2}. \]
+Substituting into the kernel gives the remarkable collapse
+\[ K(x,y^*) = xy^* - t(x^2y^* + x y^{*2} + 1) = -t\,x^2\,y^* . \]
+Since $C(t^2\bx)/(t y^*) = x/t^2$, the functional equation \eqref{eq:FE} yields
+\[ C(t^2\bx)\,Q(x,y^*) \;=\; -\frac{1}{t^2 x}\Big(xy^* - R(x) - R(y^*) + c\Big). \]
+Taking $\CT_x$: the term $xy^*$ has no $x^1$-coefficient (as $y^*$ has no constant term), $R(y^*)$ is a series in $t$ and negative powers of $x$, and $c$ is free of $x$; only $R(x)$ survives:
+\begin{equation}\label{eq:collapse}
+\sum_n S(n)t^{3n} \;=\; \frac{1}{t^2}\,[x^1]\,R(x)\;=\;\frac1t\sum_m k(m;1,0)\,t^m .
+\end{equation}
+This proves the first equality of Theorem \ref{thm:A}: $S(n) = k(3n+1;1,0)$. For the closed form, extract $[x^1]$ from Proposition \ref{prop:R} (in the positive-variable frame): with $\beta = 1+\tfrac{T^3}{4}$,
+\[ [x^1]R(x) = \tfrac12\Big[\tfrac1t - \tfrac2T - \tfrac{T^2\beta}{2} + \tfrac{T^2}{8}\big(1-\beta^2\big)\Big], \]
+and under the rational uniformization $t = T/(2+T^3)$ this equals
+\[ t^2\cdot\frac{40t^2 - 18tT + (108t^3-1)T^2}{256\,t^{5}} \]
+identically in $T$ (a rational-function identity, verified symbolically). Thus $\sum_n S(n)t^{3n} = \frac{40t^2-18tT+(108t^3-1)T^2}{256t^5}$, and Lagrange inversion, $[t^N]T^k = \frac kN\binom{N}{(N-k)/3}2^{N-(N-k)/3}$, gives
+\[ S(n) = \tfrac{1}{256}\Big(-18\,L(3n{+}4,1) + 108\,L(3n{+}2,2) - L(3n{+}5,2)\Big) \;=\; \frac{3(9n+16)(3n+1)}{8(n+2)(2n+3)}K(n), \]
+the last equality being a Gamma-quotient identity (verified symbolically; both sides are explicit products). \qed
+
+\section{The module structure and the recurrence}\label{sec:module}
+By Lemma \ref{lem:cc}, Theorem \ref{thm:A} and Theorem \ref{thm:B},
+\[ g(n) = (3n+1)K(n) - 2S(n) + T(n) = c(n)\,(3n+1)K(n) + T(n),\qquad c(n) = \frac{8n^2+n-24}{4(n+2)(2n+3)}, \]
+proving the identity of Theorem \ref{thm:main}. Both $A(n) := (3n+1)K(n)$ and $T(n)$ are hypergeometric with explicit ratios
+\[ r_A(n) = \frac{6(3n-1)(3n+1)}{(n+1)(2n+1)},\qquad r_T(n) = \frac{6(2n-1)(6n-1)(6n+1)(7n+5)}{(n+1)(4n+3)(4n+5)(7n-2)} , \]
+and these ratios are not equal as rational functions, so the sequences $A,T$ span a free $\mathbb{Q}(n)$-module of rank $2$ closed under the shift. The three vectors expressing $g(n),g(n+1),g(n+2)$ in the basis $(A(n),T(n))$,
+\[ w_i = \Big(\,c(n{+}i)\textstyle\prod_{j=1}^{i}r_A(n{+}j),\ \prod_{j=1}^{i}r_T(n{+}j)\,\Big),\qquad i=0,1,2, \]
+are forced to be linearly dependent; Cramer's rule $\gamma_i = (-1)^i\det(w_j,w_k)$ produces an explicit order-$2$ operator with polynomial coefficients, which after clearing denominators and content has degree $12$ and is displayed in Appendix \ref{app:op}. It agrees, up to a scalar, with the operator fitted from Zeilberger's data, and annihilates the computed sequence for all $56$ known terms. This completes the proof of Theorem \ref{thm:main} and settles the First Rigorous Challenge. \qed
+
+\section{Remarks and open questions}
+\begin{remark}
+The identity $S(n) = k(3n+1;1,0)$ equates a ballot-weighted double sum of general-endpoint walk counts with a single near-axis count. Our proof is a two-line kernel computation; a bijective proof would be desirable.
+\end{remark}
+\begin{remark}
+The closed form for diagonal-endpoint reverse-Kreweras walks (Theorem \ref{thm:B}) complements Kreweras' classical axis formula and Bousquet-M\'elou's diagonal result for the forward model \cite[Thm.~2]{BM05}; we have not found it in the literature. General endpoints provably admit no single hypergeometric closed form of comparable shape.
+\end{remark}
+\begin{remark}
+The Second Rigorous Challenge (non-holonomicity for the cylindrical shape $(2,1,1)\times[n]$) remains open; the walk model there lives in a union of three Weyl chambers of $S_4$, outside the scope of reflection-based methods, and we hope to return to it.
+\end{remark}
+
+\paragraph{Acknowledgements.} All symbolic and numerical verifications reported here are reproducible from the scripts at \url{https://github.com/jaideepsaipadhi/solid-syt-recurrence}. I thank Doron Zeilberger for posing the challenge.
+
+\begin{thebibliography}{9}
+\bibitem{Kreweras} G. Kreweras, Sur une classe de probl\`emes de d\'enombrement li\'es au treillis des partitions des entiers, \emph{Cahiers du B.U.R.O.} \textbf{6} (1965), 5--105.
+\bibitem{BM05} M. Bousquet-M\'elou, Walks in the quarter plane: Kreweras' algebraic model, \emph{Ann. Appl. Probab.} \textbf{15} (2005), no.~2, 1451--1491.
+\bibitem{Mishna} M. Mishna, Classifying lattice walks restricted to the quarter plane, \emph{J. Combin. Theory Ser. A} \textbf{116} (2009), no.~2, 460--477; arXiv:math/0611651.
+\bibitem{Zeil} S. B. Ekhad and D. Zeilberger, Computational and theoretical challenges on counting solid standard Young tableaux, arXiv:1202.6229 (2012); challenge statements and data on the accompanying webpage in the Personal Journal of S. B. Ekhad and D. Zeilberger.
+\end{thebibliography}
+
+\appendix
+\section{The order-2 operator}\label{app:op}
+The recurrence is $p_0(m)g(m) + p_1(m)g(m-1) + p_2(m)g(m-2) = 0$ for $m\ge3$, with:
+\input{appendix_op.tex}
+\section{The exact ODE for the diagonal series}\label{app:ode}
+With $A(t)=Q_d(t;t)$: $q_c + q_0A + q_1A' + q_2A'' + q_3A''' = 0$, where:
+\input{appendix_ode.tex}
+\end{document}
