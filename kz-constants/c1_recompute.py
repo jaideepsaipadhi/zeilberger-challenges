@@ -167,7 +167,13 @@ print("   candidate B 0.52128605909203    distance =",
       nstr(abs(best-CAND_B), 6))
 
 verdict = ("A" if abs(best-CAND_A) < abs(best-CAND_B) else "B")
-print("\n   VERDICT: the data supports candidate %s." % verdict)
+print("\n   nearest candidate at this depth: %s" % verdict)
+if args.nmax < 150:
+    print("   WARNING: at nmax < 150 the Richardson column has not converged;")
+    print("   it ascends monotonically and passes candidate A on the way to B.")
+    print("   Proximity to A here is an artefact of depth, not evidence.")
+    print("   Run --nmax 500 --orders 28 --dps 90 for the settled comparison,")
+    print("   or see c1_tail.py, which uses three independent accelerations.")
 print("   (Compare each distance against the stability figure: a candidate")
 print("    further away than the stability estimate is excluded.)")
 
