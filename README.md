@@ -74,9 +74,10 @@ a22-partial/              the a(2,2) reduction and its obstruction
 cone-exponent/            eigenvalue determination and bounds
 ```
 
-Engines, logs and bulk data from the original repositories (Chomp C solvers,
-Geode CRT driver, solid-SYT derivation trail, KZ verification suite) are
-retained in the git history of those repositories.
+Each subdirectory holds the complete contents of the corresponding original
+repository -- engines, logs, data, papers and their compiled PDFs -- together
+with the verification scripts written for the combined paper. The five
+original repositories are superseded by this one.
 
 ---
 
