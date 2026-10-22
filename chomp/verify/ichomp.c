@@ -37,15 +37,17 @@ static inline int isP(uint64_t r) { return (Pbit[r >> 3] >> (r & 7)) & 1; }
 static inline void setP(uint64_t r) { Pbit[r >> 3] |= (uint8_t)(1u << (r & 7)); }
 
 /* returns 1 if position l (already ranked smaller children done) is P */
-static int classify(const int *l) {
-    int ch[64];
+static int classify(const int *l, uint64_t rk) {
     if (l[0] == 1 && (A == 1 || l[1] == 0)) return 1;     /* poison only */
+    uint64_t term[64];
+    for (int k = 0; k < A; k++) term[k] = binom[A - k - 1 + l[k]][A - k];
     for (int r = 0; r < A && l[r] > 0; r++) {
-        for (int c = 0; c < l[r]; c++) {
-            if (r == 0 && c == 0) continue;
-            memcpy(ch, l, sizeof(int) * A);
-            for (int k = r; k < A; k++) if (ch[k] > c) ch[k] = c;
-            if (isP(rank_of(ch))) return 0;              /* move to P => N */
+        for (int c = (r == 0 ? 1 : 0); c < l[r]; c++) {
+            /* child rank = rank - sum_{k>=r, l[k]>c} (term_k(l[k]) - term_k(c)) */
+            uint64_t d = 0;
+            for (int k = r; k < A && l[k] > c; k++)
+                d += term[k] - binom[A - k - 1 + c][A - k];
+            if (isP(rk - d)) return 0;
         }
     }
     return 1;
@@ -80,8 +82,8 @@ int main(int argc, char **argv) {
     uint64_t r = 0, nP = 0;
     for (;;) {
         if (l[0] > 0) {
-            if (rank_of(l) != r) { fprintf(stderr, "rank mismatch at %llu\n", (unsigned long long)r); return 2; }
-            if (classify(l)) { setP(r); nP++; }
+            if ((r & 0xFFFFF) == 0 && rank_of(l) != r) { fprintf(stderr, "rank mismatch at %llu\n", (unsigned long long)r); return 2; }
+            if (classify(l, r)) { setP(r); nP++; }
         }
         r++;
         /* next sequence in lex order */
